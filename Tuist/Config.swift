@@ -2,6 +2,7 @@ import ProjectDescription
 
 let config = Config(
     plugins: [
-        .local(path: .relativeToManifest("../../Plugins/INFOIOS")),
-    ]
+        .local(path: .relativeToRoot("Plugins/UtilityPlugin"))
+    ],
+    generationOptions: .options()
 )
