@@ -1,6 +1,5 @@
 ### macOS ###
 # General
-Makefile
 .DS_Store
 .AppleDouble
 .LSOverride
