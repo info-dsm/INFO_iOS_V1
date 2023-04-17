@@ -8,22 +8,22 @@
 
 import Foundation
 import Presentation
-import Network
+//import Network
 
 public class ModuleFactory {
-    static let shared = ModuleFactory()
+    public static let shared = ModuleFactory()
     private init() { }
 }
 
 extension ModuleFactory: ModuleFactoryInterface {
-    public func testVC() -> Presentation.ViewController {
-        let vc = ViewController()
+    public func testVC() -> Presentation.ViewController2 {
+        let vc = ViewController2()
         
         return vc
     }
     
-    public func makeVC() -> Presentation.ViewController {
-        let vc = ViewController()
+    public func makeVC() -> Presentation.ViewController2 {
+        let vc = ViewController2()
         
         return vc
     }
