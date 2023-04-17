@@ -6,99 +6,39 @@
 //
 
 import UIKit
-import UserNotifications
 
-//import Core
-import Network
-
-import AWSSNS
-import AWSCore
-
-@main
+@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
-    private let SNSPlatformApplicationArn = Config.Network.ARN
-    
-    func application( _ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // APNS 설정
-        UNUserNotificationCenter.current().delegate = self
-        
-        // APNS 권한 허용 알림
-        UNUserNotificationCenter.current()
-            .requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-                // APNS 권한 성공
-                print("permission granted: \(granted)")
-        }
-        
-        // AWSServiceConfiguration setting
-        let defaultServiceConfiguration = AWSServiceConfiguration(region: .APNortheast2, credentialsProvider: nil)
-        AWSServiceManager.default().defaultServiceConfiguration = defaultServiceConfiguration
-        
-        // APNS 등록
-        application.registerForRemoteNotifications()
+
+    var window: UIWindow?
+
+
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // Override point for customization after application launch.
         return true
     }
-    
-    /// APNS 등록 실패할 경우 호출되는 메서드
-    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        print("Failed to register for notifications: \(error.localizedDescription)")
-    }
-    
-    /// APNS 등록 성공할 경우 호출되는 메서드
-    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        let tokenPart = deviceToken.map { data in String(format: "%02.2hhx", data) }
-        let token = tokenPart.joined()
-        print("Device Token:", token)
-        
-        UserDefaultKeyList.Auth.deviceToken = token
-        
-        // create platform endpoint (= device endpoint ARN)
-        let sns = AWSSNS.default()
-        let request = AWSSNSCreatePlatformEndpointInput()
-        request?.token = token
-        request?.platformApplicationArn = SNSPlatformApplicationArn
-        sns.createPlatformEndpoint(request!).continueWith(executor: AWSExecutor.mainThread(), block: { (task: AWSTask!) -> AnyObject? in
-            if task.error != nil {
-                print("Error: \(String(describing: task.error))")
-            } else {
-                let createEndpointResponse = task.result! as AWSSNSCreateEndpointResponse
-                
-                if let endpointArnForSNS = createEndpointResponse.endpointArn {
-                    print("endpointArn: \(endpointArnForSNS)")
-                    UserDefaultKeyList.Auth.endpointArnForSNS = endpointArnForSNS
-                }
-            }
-            
-            return nil
-        })
-    }
-    
-    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.portrait
-    }
-    
-    // MARK: UISceneSession Lifecycle
-    
-    func application( _ application: UIApplication,
-        configurationForConnecting connectingSceneSession: UISceneSession,
-        options: UIScene.ConnectionOptions
-    ) -> UISceneConfiguration {
-        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
-    }
-    
-    func application( _ application: UIApplication,
-        didDiscardSceneSessions sceneSessions: Set<UISceneSession>
-    ) {}
-}
 
-extension AppDelegate: UNUserNotificationCenterDelegate {
-    /// 앱이 실행 중(foreground)에 푸시을 받는 경우 처리하는 메소드
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.list, .banner, .sound, .badge])
+    func applicationWillResignActive(_ application: UIApplication) {
+        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
+        // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     }
-    
-    /// background에서 푸시를 받는 경우 처리하는 메소드
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        completionHandler()
+
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
+        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
+
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    }
+
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    }
+
+    func applicationWillTerminate(_ application: UIApplication) {
+        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+
+
 }

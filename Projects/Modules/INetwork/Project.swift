@@ -9,7 +9,7 @@ import ProjectDescription
 import ProjectDescriptionHelpers
 
 let project = Project.makeModule(
-    name: "Network",
+    name: "INetwork",
     product: .staticFramework,
     dependencies: [
         .Project.Core

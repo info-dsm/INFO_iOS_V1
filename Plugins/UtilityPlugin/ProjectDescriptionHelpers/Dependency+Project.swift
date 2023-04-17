@@ -22,7 +22,7 @@ public extension TargetDependency.Project {
     
     static let ThirdPartyLib = TargetDependency.project(target: "ThirdPartyLib", path: .relativeToRoot("Projects/Modules/ThirdPartyLib"))
     
-    static let Network = TargetDependency.project(target: "Network", path: .relativeToRoot("Projects/Modules/Network"))
+    static let Network = TargetDependency.project(target: "INetwork", path: .relativeToRoot("Projects/Modules/INetwork"))
     
     static let DSKit = TargetDependency.project(target: "INFOKit", path: .relativeToRoot("Projects/Modules/INFOKit"))
 }
