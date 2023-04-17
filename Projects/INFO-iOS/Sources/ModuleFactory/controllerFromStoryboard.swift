@@ -1,6 +1,6 @@
 import UIKit
 
-import Core
+//import Core
 
 extension UIViewController {
     private class func instantiateControllerInStoryboard<T: UIViewController>(_ storyboard: UIStoryboard, identifier: String) -> T {
