@@ -24,5 +24,5 @@ public extension TargetDependency.Project {
     
     static let Network = TargetDependency.project(target: "INetwork", path: .relativeToRoot("Projects/Modules/INetwork"))
     
-    static let DSKit = TargetDependency.project(target: "INFOKit", path: .relativeToRoot("Projects/Modules/INFOKit"))
+    static let INFOKit = TargetDependency.project(target: "INFOKit", path: .relativeToRoot("Projects/Modules/INFOKit"))
 }
