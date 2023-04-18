@@ -1,2 +1,3 @@
 # INFO_iOS
-![graph](https://user-images.githubusercontent.com/102890390/232631467-6dde3f35-5130-4a67-867d-2fb767430400.PNG)
+
+![graph 복사본](https://user-images.githubusercontent.com/102890390/232639966-8f6a46ee-b393-4de8-b142-aef097ab2673.png)
