@@ -14,7 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = scene
         let rootViewController = ModuleFactory.shared.testVC()
 //        let rootViewController = ModuleFactory.shared.makeSplashVC()
-        window?.rootViewController = UINavigationController(rootViewController: rootViewController)
+        window?.rootViewController = UINavigationController(rootViewController: LoginViewController())
         window?.makeKeyAndVisible()
     }
 

@@ -1,10 +1,3 @@
-//
-//  Dependencies.swift
-//  Config
-//
-//  Created by sejin on 2022/10/02.
-//
-
 import ProjectDescription
 import ProjectDescriptionHelpers
 
@@ -14,7 +7,8 @@ let spm = SwiftPackageManagerDependencies([
     .remote(url: "https://github.com/devxoul/Then", requirement: .upToNextMajor(from: "2")),
     .remote(url: "https://github.com/onevcat/Kingfisher.git", requirement: .upToNextMajor(from: "7.0.0")),
     .remote(url: "https://github.com/aws-amplify/aws-sdk-ios-spm.git", requirement: .branch("main")),
-    .remote(url: "https://github.com/RxSwiftCommunity/RxNimble", requirement: .upToNextMajor(from: "5.1.0"))
+    .remote(url: "https://github.com/RxSwiftCommunity/RxNimble", requirement: .upToNextMajor(from: "5.1.0")),
+    .remote(url: "https://github.com/ReactiveX/RxSwift", requirement: .upToNextMajor(from: "6.5.0"))
 ])
 
 let dependencies = Dependencies(

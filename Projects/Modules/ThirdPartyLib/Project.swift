@@ -21,6 +21,7 @@ let project = Project.makeModule(
         .SPM.AWSSNS,
         .SPM.RxBlocking,
         .SPM.RxCocoa,
-        .SPM.RxSwift
+        .SPM.RxSwift,
+        .SPM.RxMoya
     ]
 )

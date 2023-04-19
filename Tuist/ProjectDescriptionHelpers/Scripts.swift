@@ -1,10 +1,3 @@
-//
-//  Scripts.swift
-//  ProjectDescriptionHelpers
-//
-//  Created by devxsby on 2022/10/02.
-//
-
 import ProjectDescription
 
 public extension TargetScript {
