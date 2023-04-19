@@ -1,11 +1,3 @@
-//
-//  ViewController.swift
-//  Presentation
-//
-//  Created by 박준하 on 2023/04/17.
-//  Copyright © 2023 INFO-iOS. All rights reserved.
-//
-
 import UIKit
 import SnapKit
 import Then
