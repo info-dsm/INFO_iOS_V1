@@ -19,5 +19,4 @@ let project = Project.makeModule(
     ],
     resources: ["Resources/**"],
     infoPlist: .extendingDefault(with: Project.baseinfoPlist)
-
 )

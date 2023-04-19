@@ -18,4 +18,7 @@ public extension TargetDependency.SPM {
     static let Moya = TargetDependency.external(name: "Moya")
     static let AWSCore = TargetDependency.external(name: "AWSCore")
     static let AWSSNS = TargetDependency.external(name: "AWSSNS")
+    static let RxSwift = TargetDependency.external(name: "RxSwift")
+    static let RxBlocking = TargetDependency.external(name: "RxBlocking")
+    static let RxCocoa = TargetDependency.external(name: "RxCocoa")
 }

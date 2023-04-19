@@ -18,6 +18,9 @@ let project = Project.makeModule(
         .SPM.Then,
         .SPM.Moya,
         .SPM.AWSCore,
-        .SPM.AWSSNS
+        .SPM.AWSSNS,
+        .SPM.RxBlocking,
+        .SPM.RxCocoa,
+        .SPM.RxSwift
     ]
 )

@@ -8,7 +8,7 @@
 import ProjectDescription
 
 public extension TargetDependency {
-    public struct Project {}
+    struct Project {}
 }
 
 public extension TargetDependency.Project {

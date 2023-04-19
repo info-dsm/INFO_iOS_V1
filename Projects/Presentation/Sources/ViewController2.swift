@@ -3,7 +3,7 @@ import SnapKit
 import Then
 
 public class ViewController2: UIViewController {
-   
+       
     var button = UIButton().then {
         $0.backgroundColor = .green
     }
