@@ -54,7 +54,6 @@ public extension SettingsDictionary {
         merging(["CODE_SIGN_STYLE": SettingValue(stringLiteral: "Manual")])
             .merging(["DEVELOPMENT_TEAM": SettingValue(stringLiteral: "9K86FQHDLU")])
             .merging(["CODE_SIGN_IDENTITY": SettingValue(stringLiteral: "iPhone Developer")])
-            .merging(["CODE_SIGN_ENTITLEMENTS": SettingValue(stringLiteral: "INFO-iOS.entitlements")])
     }
     
     func setProvisioningDevelopment() -> SettingsDictionary {

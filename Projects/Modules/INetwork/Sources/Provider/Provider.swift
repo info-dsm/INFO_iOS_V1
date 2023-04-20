@@ -7,7 +7,6 @@
 //
 
 import Moya
-import RxMoya
 import RxSwift
 
 open class Provider {
@@ -15,13 +14,13 @@ open class Provider {
     private let provider = MoyaProvider<API>()
     private let disposeBag = DisposeBag()
     
-    func login(email: String, password: String) -> Single<Bool> {
-        return provider.rx.request(.login(email: email, password: password))
-            .map { response in
-                return true
-            }
-            .catchError { error in
-                return Single.error(error)
-            }
-    }
+//    func login(email: String, password: String) -> Single<Bool> {
+//        return provider.rx.request(.login(email: email, password: password))
+//            .map { response in
+//                return true
+//            }
+//            .catchError { error in
+//                return Single.error(error)
+//            }
+//    }
 }
