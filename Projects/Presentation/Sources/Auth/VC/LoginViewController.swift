@@ -16,9 +16,7 @@ import RxSwift
 public class LoginViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
-    
-    var viewModel: LoginViewModel!
-    
+        
     public override func viewDidLoad() {
         super.viewDidLoad()
         
