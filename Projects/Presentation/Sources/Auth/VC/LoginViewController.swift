@@ -9,12 +9,21 @@
 import UIKit
 import SnapKit
 import Then
+import Domain
+import RxCocoa
+import RxSwift
 
 public class LoginViewController: UIViewController {
+    
+    private let disposeBag = DisposeBag()
+    
+    var viewModel: LoginViewModel!
     
     public override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .green
+        
     }
+    
 }

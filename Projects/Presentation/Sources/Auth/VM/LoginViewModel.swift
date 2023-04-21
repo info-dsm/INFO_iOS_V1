@@ -2,35 +2,27 @@
 //  LoginViewModel.swift
 //  Presentation
 //
-//  Created by 박준하 on 2023/04/19.
+//  Created by 박준하 on 2023/04/21.
 //  Copyright © 2023 INFO-iOS. All rights reserved.
 //
 
-//import RxSwift
-//
-//class LoginViewModel {
-//    private let disposeBag = DisposeBag()
-//
-//    let email = BehaviorSubject<String>(value: "")
-//    let password = BehaviorSubject<String>(value: "")
-//    let isLoading = BehaviorSubject<Bool>(value: false)
-//    let error = BehaviorSubject<String?>(value: nil)
-//
-//    func login() {
-//        guard let email = try? email.value(),
-//            let password = try? password.value() else {
-//            return
-//        }
-//
-//        isLoading.onNext(true)
-//        Provider.shared.login(email: email, password: password)
-//            .observeOn(MainScheduler.instance)
-//            .subscribe(onSuccess: { [weak self] _ in
-//                self?.isLoading.onNext(false)
-//            }, onError: { [weak self] error in
-//                self?.isLoading.onNext(false)
-//                self?.error.onNext(error.localizedDescription)
-//            })
-//            .disposed(by: disposeBag)
-//    }
-//}
+import Foundation
+import RxSwift
+import RxCocoa
+import Domain
+
+final class LoginViewModel {
+    private let authService: AuthServiceType
+    private let disposeBag = DisposeBag()
+    
+    init(authService: AuthServiceType) {
+        self.authService = authService
+    }
+    
+    func login(username: String, password: String) -> Observable<Bool> {
+        let user = User(username: username, password: password)
+        return authService.login(user: user)
+            .asObservable()
+            .catchErrorJustReturn(false)
+    }
+}
