@@ -12,9 +12,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(frame: scene.coordinateSpace.bounds)
         window?.windowScene = scene
-        let rootViewController = ModuleFactory.shared.testVC()
-//        let rootViewController = ModuleFactory.shared.makeSplashVC()
-        window?.rootViewController = UINavigationController(rootViewController: LoginViewController())
+        
+        let rootViewController = ModuleFactory.shared.loginVC()
+
+        window?.rootViewController = UINavigationController(rootViewController: rootViewController)
         window?.makeKeyAndVisible()
     }
 

@@ -16,11 +16,13 @@ import RxSwift
 public class LoginViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
+    
+    public var factory: ModuleFactoryInterface!
         
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .green
+        view.backgroundColor = .red
         
     }
     

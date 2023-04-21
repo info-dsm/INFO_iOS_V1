@@ -1,6 +1,5 @@
 import Foundation
 import Presentation
-//import Network
 
 public class ModuleFactory {
     public static let shared = ModuleFactory()
@@ -8,15 +7,15 @@ public class ModuleFactory {
 }
 
 extension ModuleFactory: ModuleFactoryInterface {
-    public func testVC() -> Presentation.ViewController2 {
+    public func makeVC() -> Presentation.ViewController2 {
         let vc = ViewController2()
         
         return vc
     }
     
-    public func makeVC() -> Presentation.ViewController2 {
-        let vc = ViewController2()
+    public func loginVC() -> Presentation.LoginViewController {
+        let loginVC = LoginViewController()
         
-        return vc
+        return loginVC
     }
 }
