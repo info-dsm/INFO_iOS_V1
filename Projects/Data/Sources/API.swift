@@ -11,6 +11,7 @@
 import Foundation
 import Moya
 import Domain
+import Core
 
 public enum API {
     case login(User)
@@ -18,7 +19,7 @@ public enum API {
 
 extension API: TargetType {
     public var baseURL: URL {
-        return URL(string: "https://api.info-dsm.info")!
+        return URL.baseURL
     }
     
     public var path: String {
