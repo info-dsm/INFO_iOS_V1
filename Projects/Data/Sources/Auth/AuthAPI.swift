@@ -1,23 +1,21 @@
 //
-//  API.swift
+//  AuthAPI.swift
 //  Data
 //
-//  Created by 박준하 on 2023/04/21.
+//  Created by 박준하 on 2023/05/03.
 //  Copyright © 2023 INFO-iOS. All rights reserved.
 //
-
-// API.swift
 
 import Foundation
 import Moya
 import Domain
-import Core 
+import Core
 
-public enum API {
-    case login(User)
+public enum AuthAPI {
+    case login(email: String, password: String)
 }
 
-extension API: TargetType {
+extension AuthAPI: TargetType {
     public var baseURL: URL {
         return URL.baseURL
     }
@@ -36,19 +34,15 @@ extension API: TargetType {
         }
     }
     
-    public var sampleData: Data {
-        return Data()
-    }
-    
     public var task: Task {
         switch self {
-        case let .login(user):
-            let parameters = ["username": user.username, "password": user.password]
+        case let .login(email, password):
+            let parameters = ["email": email, "password": password]
             return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
         }
     }
     
     public var headers: [String: String]? {
-        return ["Content-Type": "application/json"]
+        return ["Content-type": "application/json"]
     }
 }
