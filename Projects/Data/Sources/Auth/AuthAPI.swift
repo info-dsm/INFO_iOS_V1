@@ -18,6 +18,7 @@ public enum AuthAPI {
     case signup(emailCode: String, parameters: SignUpParameters)
     case reissue
     case tokenTime(token: String)
+    case resetPassword(PasswordResetRequest)
 }
 
 extension AuthAPI: TargetType {
@@ -39,6 +40,8 @@ extension AuthAPI: TargetType {
             return "/auth/reissue"
         case .tokenTime:
             return "/auth/token"
+        case .resetPassword:
+            return "/auth/password"
         }
     }
     
@@ -56,6 +59,8 @@ extension AuthAPI: TargetType {
             return .put
         case .tokenTime:
             return .get
+        case .resetPassword:
+            return .put
         }
     }
     
@@ -76,6 +81,8 @@ extension AuthAPI: TargetType {
         case .tokenTime(let token):
             let parameters: [String : Any] = ["token": token]
             return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
+        case .resetPassword(let request):
+            return .requestJSONEncodable(request)
         }
     }
     
