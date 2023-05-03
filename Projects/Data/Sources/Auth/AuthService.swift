@@ -27,4 +27,11 @@ class AuthService {
             .filterSuccessfulStatusCodes()
             .map { _ in Void() }
     }
+    
+    func checkCode(email: String, data: String, type: String) -> Single<Void> {
+        return provider.rx
+            .request(.checkCode(email: email, data: data, type: type))
+            .filterSuccessfulStatusCodes()
+            .map { _ in }
+    }
 }

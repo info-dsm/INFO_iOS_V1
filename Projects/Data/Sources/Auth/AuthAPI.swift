@@ -14,6 +14,7 @@ import Core
 public enum AuthAPI {
     case login(email: String, password: String)
     case sandCode(email: String)
+    case checkCode(email: String, data: String, type: String)
 }
 
 extension AuthAPI: TargetType {
@@ -27,6 +28,8 @@ extension AuthAPI: TargetType {
             return "/auth/login/user"
         case .sandCode(let email):
             return "/auth/code?email=\(email)"
+        case .checkCode:
+            return "/auth/code"
         }
     }
     
@@ -36,6 +39,8 @@ extension AuthAPI: TargetType {
             return .post
         case .sandCode:
             return .put
+        case .checkCode:
+            return .post
         }
     }
     
@@ -46,6 +51,9 @@ extension AuthAPI: TargetType {
             return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
         case .sandCode:
             return .requestPlain
+        case let .checkCode(email, data, type):
+            let parameters = ["email": email, "data": data, "type": type]
+             return .requestJSONEncodable(parameters)
         }
     }
     
