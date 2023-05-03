@@ -17,6 +17,7 @@ public enum AuthAPI {
     case checkCode(email: String, data: String, type: String)
     case signup(emailCode: String, parameters: SignUpParameters)
     case reissue
+    case tokenTime(token: String)
 }
 
 extension AuthAPI: TargetType {
@@ -36,6 +37,8 @@ extension AuthAPI: TargetType {
             return "/auth/signup/student?emailCode=\(emailCode)"
         case .reissue:
             return "/auth/reissue"
+        case .tokenTime:
+            return "/auth/token"
         }
     }
     
@@ -51,6 +54,8 @@ extension AuthAPI: TargetType {
             return .post
         case .reissue:
             return .put
+        case .tokenTime:
+            return .get
         }
     }
     
@@ -68,6 +73,9 @@ extension AuthAPI: TargetType {
             return .requestJSONEncodable(parameters)
         case .reissue:
              return .requestPlain
+        case .tokenTime(let token):
+            let parameters: [String : Any] = ["token": token]
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
         }
     }
     

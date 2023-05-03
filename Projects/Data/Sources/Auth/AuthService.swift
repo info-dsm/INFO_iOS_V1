@@ -49,4 +49,15 @@ class AuthService {
             .filterSuccessfulStatusCodes()
             .map(Token.self)
     }
+    
+    func checkTokenTime(token: String) -> Single<Int> {
+        return provider.rx
+            .request(.tokenTime(token: token))
+            .filterSuccessfulStatusCodes()
+            .map { response in
+                let jsonDecoder = JSONDecoder()
+                let remainingTime = try jsonDecoder.decode(Int.self, from: response.data)
+                return remainingTime
+            }
+    }
 }
