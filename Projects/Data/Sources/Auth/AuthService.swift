@@ -42,4 +42,11 @@ class AuthService {
             .filterSuccessfulStatusCodes()
             .map { _ in Void() }
     }
+    
+    func reissueToken() -> Single<Token> {
+        return provider.rx
+            .request(.reissue)
+            .filterSuccessfulStatusCodes()
+            .map(Token.self)
+    }
 }
