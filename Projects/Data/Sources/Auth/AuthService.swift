@@ -20,4 +20,11 @@ class AuthService {
             .filterSuccessfulStatusCodes()
             .map(Token.self)
     }
+    
+    func sendCode(email: String) -> Single<Void> {
+        return provider.rx
+            .request(.sandCode(email: email))
+            .filterSuccessfulStatusCodes()
+            .map { _ in Void() }
+    }
 }
