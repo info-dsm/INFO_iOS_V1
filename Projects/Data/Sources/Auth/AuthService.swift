@@ -34,4 +34,12 @@ class AuthService {
             .filterSuccessfulStatusCodes()
             .map { _ in }
     }
+    
+    func signUp(emailCode: String, studentKey: String, name: String, email: String, password: String, githubLink: String?) -> Single<Void> {
+        let signUpParameters = SignUpParameters(studentKey: studentKey, name: name, email: email, password: password, githubLink: githubLink)
+        return provider.rx
+            .request(.signup(emailCode: emailCode, parameters: signUpParameters))
+            .filterSuccessfulStatusCodes()
+            .map { _ in Void() }
+    }
 }

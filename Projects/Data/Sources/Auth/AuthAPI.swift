@@ -15,6 +15,7 @@ public enum AuthAPI {
     case login(email: String, password: String)
     case sandCode(email: String)
     case checkCode(email: String, data: String, type: String)
+    case signup(emailCode: String, parameters: SignUpParameters)
 }
 
 extension AuthAPI: TargetType {
@@ -30,6 +31,8 @@ extension AuthAPI: TargetType {
             return "/auth/code?email=\(email)"
         case .checkCode:
             return "/auth/code"
+        case .signup(let emailCode, _):
+            return "/auth/signup/student?emailCode=\(emailCode)"
         }
     }
     
@@ -40,6 +43,8 @@ extension AuthAPI: TargetType {
         case .sandCode:
             return .put
         case .checkCode:
+            return .post
+        case .signup:
             return .post
         }
     }
@@ -54,6 +59,8 @@ extension AuthAPI: TargetType {
         case let .checkCode(email, data, type):
             let parameters = ["email": email, "data": data, "type": type]
              return .requestJSONEncodable(parameters)
+        case let .signup(_, parameters):
+            return .requestJSONEncodable(parameters)
         }
     }
     
