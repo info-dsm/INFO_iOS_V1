@@ -1,6 +1,7 @@
 import UIKit
 import SnapKit
 import Then
+import INFOKit
 
 public class ViewController2: UIViewController {
        
@@ -13,7 +14,7 @@ public class ViewController2: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .red
+        view.backgroundColor = INFOKitAsset.Colors.mainColor.color
         
         view.addSubview(button)
         
