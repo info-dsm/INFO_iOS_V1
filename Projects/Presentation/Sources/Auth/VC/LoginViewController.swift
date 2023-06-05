@@ -45,6 +45,13 @@ public class LoginViewController: UIViewController {
     private lazy var passwordFieldView = InfoFieldView(title: "비밀번호")
     private lazy var loginButton = InfoCustomButton(title: "로그인", backgroundColor: INFOKitAsset.Colors.mainColor.color, titleColor: .white)
     
+    private lazy var infoStackView = UIStackView().then {
+            $0.axis = .horizontal
+            $0.spacing = 4.0
+            $0.addArrangedSubview(InfoLabel(title: "비밀번호를 잊으셨나요?"))
+            $0.addArrangedSubview(InfoButton(buttonTitle: "비밀번호 찾기", underlineEnabled: false))
+        }
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -61,7 +68,8 @@ public class LoginViewController: UIViewController {
             studentLoginTitle,
             emailFieldView,
             passwordFieldView,
-            loginButton
+            loginButton,
+            infoStackView
         ])
         
         whiteLogo.snp.makeConstraints {
@@ -89,7 +97,7 @@ public class LoginViewController: UIViewController {
             $0.left.equalTo(purpleLogo.snp.left)
         }
         
-        emailFieldView.snp.makeConstraints { // 수정된 부분
+        emailFieldView.snp.makeConstraints {
             $0.top.equalTo(studentLoginTitle.snp.bottom).offset(64.0)
             $0.leading.trailing.equalToSuperview().inset(50.0)
             $0.height.equalTo(40.0)
@@ -105,6 +113,11 @@ public class LoginViewController: UIViewController {
             $0.top.equalTo(passwordFieldView.snp.bottom).offset(90.0)
             $0.leading.trailing.equalToSuperview().inset(50.0)
             $0.height.equalTo(48.0)
+        }
+        
+        infoStackView.snp.makeConstraints {
+            $0.top.equalTo(loginButton.snp.bottom).offset(14.0)
+            $0.centerX.equalToSuperview()
         }
     }
 }
