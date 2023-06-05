@@ -31,10 +31,10 @@ public class SignupViewController: UIViewController {
         $0.font = .systemFont(ofSize: 36.0, weight: .bold)
     }
     
-    private lazy var gmailFieldView = InfoTwoFieldView(title: "이메일")
-    private lazy var studentIdFieldView1 = InfoTwoFieldView(title: "이름 · 학번")
-    private lazy var studentIdFieldView2 = InfoTwoFieldView(title: "이름 · 학번")
-    private lazy var githubFieldView = InfoOneFieldView(title: "깃허브 주소")
+    private lazy var gmailFieldView = InfoTwoFieldView(title: "이메일", placeholder1: "이메일을 입력해주세요.", placeholder2: "인증번호를 입력해주세요.", buttonVisible: true)
+    private lazy var studentIdFieldView1 = InfoTwoFieldView(title: "이름 · 학번", placeholder1: "이름을 입력해주세요.", placeholder2: "학번을 입력해주세요.")
+    private lazy var studentIdFieldView2 = InfoTwoFieldView(title: "이름 · 학번", placeholder1: "비밀번호를 입력해주세요.", placeholder2: "비밀번호를 다시 입력해주세요.")
+    private lazy var githubFieldView = InfoOneFieldView(title: "깃허브 주소", placeholder: "깃허브 주소를 입력해주세요.")
     private lazy var signupButton = InfoCustomButton(title: "회원가입", backgroundColor: INFOKitAsset.Colors.mainColor.color, titleColor: .white)
     
     private lazy var userInfoStackView = UIStackView().then {

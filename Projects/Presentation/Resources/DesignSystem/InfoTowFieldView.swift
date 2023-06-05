@@ -19,8 +19,10 @@ open class InfoTwoFieldView: UIView {
     private let titleLabel: UILabel
     private let textField1: UITextField
     private let textField2: UITextField
+    private let button1: UIButton
+    private let button2: UIButton
     
-    public init(title: String) {
+    public init(title: String, placeholder1: String, placeholder2: String, buttonVisible: Bool = false) {
         titleLabel = UILabel().then {
             $0.textColor = INFOKitAsset.Colors.dailyGrayColor.color
             $0.font = .systemFont(ofSize: 15.0, weight: .semibold)
@@ -30,7 +32,7 @@ open class InfoTwoFieldView: UIView {
         textField1 = UITextField().then {
             $0.font = .systemFont(ofSize: 10.0, weight: .medium)
             $0.tintColor = INFOKitAsset.Colors.thinGrayColor.color
-            $0.attributedPlaceholder = NSAttributedString(string: "이메일을 입력해주세요", attributes: [NSAttributedString.Key.foregroundColor: INFOKitAsset.Colors.thinGrayColor.color])
+            $0.attributedPlaceholder = NSAttributedString(string: placeholder1, attributes: [NSAttributedString.Key.foregroundColor: INFOKitAsset.Colors.thinGrayColor.color])
             $0.keyboardType = .emailAddress
             $0.clearButtonMode = .whileEditing
             $0.borderStyle = .roundedRect
@@ -41,7 +43,7 @@ open class InfoTwoFieldView: UIView {
         textField2 = UITextField().then {
             $0.font = .systemFont(ofSize: 10.0, weight: .medium)
             $0.tintColor = INFOKitAsset.Colors.thinGrayColor.color
-            $0.attributedPlaceholder = NSAttributedString(string: "비밀번호를 입력해주세요", attributes: [NSAttributedString.Key.foregroundColor: INFOKitAsset.Colors.thinGrayColor.color])
+            $0.attributedPlaceholder = NSAttributedString(string: placeholder2, attributes: [NSAttributedString.Key.foregroundColor: INFOKitAsset.Colors.thinGrayColor.color])
             $0.isSecureTextEntry = true
             $0.clearButtonMode = .whileEditing
             $0.borderStyle = .roundedRect
@@ -49,16 +51,28 @@ open class InfoTwoFieldView: UIView {
             $0.layer.cornerRadius = 4.0
         }
         
+        button1 = UIButton().then {
+            $0.setTitle("인증번호 발송", for: .normal)
+            $0.setTitleColor(INFOKitAsset.Colors.mainColor.color, for: .normal)
+            $0.titleLabel?.font = .systemFont(ofSize: 10.0, weight: .medium)
+        }
+        
+        button2 = UIButton().then {
+            $0.setTitle("인증 번호 확인", for: .normal)
+            $0.setTitleColor(INFOKitAsset.Colors.mainColor.color, for: .normal)
+            $0.titleLabel?.font = .systemFont(ofSize: 10.0, weight: .medium)
+        }
+        
         super.init(frame: .zero)
         
-        setupLayout()
+        setupLayout(buttonVisible: buttonVisible)
     }
     
     required public init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    open func setupLayout() {
+    open func setupLayout(buttonVisible: Bool) {
         addSubview(titleLabel)
         addSubview(textField1)
         addSubview(textField2)
@@ -68,16 +82,48 @@ open class InfoTwoFieldView: UIView {
             $0.left.equalToSuperview()
         }
         
+        if buttonVisible {
+            addSubview(button1)
+            button1.snp.makeConstraints {
+                $0.centerY.equalTo(textField1)
+                $0.trailing.equalToSuperview()
+                $0.width.equalTo(70.0)
+                $0.height.equalTo(30.0)
+            }
+        }
+        
         textField1.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(10.0)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(40.0)
         }
         
+        if buttonVisible {
+            addSubview(button1)
+            
+            button1.snp.makeConstraints {
+                $0.centerY.equalTo(textField1)
+                $0.trailing.equalToSuperview().inset(20.0)
+                $0.width.equalTo(70.0)
+                $0.height.equalTo(30.0)
+            }
+        }
+        
         textField2.snp.makeConstraints {
             $0.top.equalTo(textField1.snp.bottom).offset(10.0)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(40.0)
+        }
+        
+        if buttonVisible {
+            addSubview(button2)
+            
+            button2.snp.makeConstraints {
+                $0.centerY.equalTo(textField2)
+                $0.trailing.equalToSuperview().inset(20.0)
+                $0.width.equalTo(70.0)
+                $0.height.equalTo(30.0)
+            }
         }
     }
 }
