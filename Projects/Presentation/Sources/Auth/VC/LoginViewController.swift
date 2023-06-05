@@ -40,27 +40,10 @@ public class LoginViewController: UIViewController {
         $0.textColor = .black
         $0.font = .systemFont(ofSize: 36.0, weight: .bold)
     }
-
-//    private lazy var emailTitle = UILabel().then {
-//        $0.text = "이메일"
-//        $0.textColor = INFOKitAsset.Colors.dailyGrayColor.color
-//        $0.font = .systemFont(ofSize: 15.0, weight: .semibold)
-//    }
-//
-//    private lazy var emailTextField = UITextField().then {
-//        $0.font = .systemFont(ofSize: 10.0, weight: .medium)
-//        $0.tintColor = INFOKitAsset.Colors.thinGrayColor.color
-//        $0.attributedPlaceholder = NSAttributedString(string: "이메일을 입력해주세요", attributes: [NSAttributedString.Key.foregroundColor: INFOKitAsset.Colors.thinGrayColor.color])
-//        $0.keyboardType = .emailAddress
-//        $0.clearButtonMode = .whileEditing
-//        $0.borderStyle = .roundedRect
-//        $0.backgroundColor = INFOKitAsset.Colors.lightGrayColor.color
-//        $0.layer.cornerRadius = 4.0
-//    }
-//
     
     private lazy var emailFieldView = InfoFieldView(title: "이메일")
     private lazy var passwordFieldView = InfoFieldView(title: "비밀번호")
+    private lazy var loginButton = InfoCustomButton(title: "로그인", backgroundColor: INFOKitAsset.Colors.mainColor.color, titleColor: .white)
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,7 +60,8 @@ public class LoginViewController: UIViewController {
             purpleLogo,
             studentLoginTitle,
             emailFieldView,
-            passwordFieldView
+            passwordFieldView,
+            loginButton
         ])
         
         whiteLogo.snp.makeConstraints {
@@ -116,6 +100,11 @@ public class LoginViewController: UIViewController {
             $0.leading.trailing.equalTo(emailFieldView)
             $0.height.equalTo(emailFieldView)
         }
+        
+        loginButton.snp.makeConstraints {
+            $0.top.equalTo(passwordFieldView.snp.bottom).offset(90.0)
+            $0.leading.trailing.equalToSuperview().inset(50.0)
+            $0.height.equalTo(48.0)
+        }
     }
-    
 }
