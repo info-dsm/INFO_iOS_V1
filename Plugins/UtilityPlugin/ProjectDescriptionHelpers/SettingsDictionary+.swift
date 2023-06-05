@@ -46,13 +46,13 @@ public extension SettingsDictionary {
     
     func setCodeSignManual() -> SettingsDictionary {
         merging(["CODE_SIGN_STYLE": SettingValue(stringLiteral: "Manual")])
-            .merging(["DEVELOPMENT_TEAM": SettingValue(stringLiteral: "9K86FQHDLU")])
+            .merging(["DEVELOPMENT_TEAM": SettingValue(stringLiteral: "92YDTRVDUA")])
             .merging(["CODE_SIGN_IDENTITY": SettingValue(stringLiteral: "iPhone Developer")])
     }
     
     func setCodeSignManualForApp() -> SettingsDictionary {
         merging(["CODE_SIGN_STYLE": SettingValue(stringLiteral: "Manual")])
-            .merging(["DEVELOPMENT_TEAM": SettingValue(stringLiteral: "9K86FQHDLU")])
+            .merging(["DEVELOPMENT_TEAM": SettingValue(stringLiteral: "92YDTRVDUA")])
             .merging(["CODE_SIGN_IDENTITY": SettingValue(stringLiteral: "iPhone Developer")])
     }
     
@@ -68,3 +68,12 @@ public extension SettingsDictionary {
     }
 }
 
+public extension Dictionary where Key == String, Value == SettingValue {
+    func merging(_ other: [String: SettingValue]) -> SettingsDictionary {
+        var merged = self
+        for (key, value) in other {
+            merged[key] = value
+        }
+        return merged
+    }
+}
