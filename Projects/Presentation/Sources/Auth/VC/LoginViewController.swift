@@ -49,14 +49,14 @@ public class LoginViewController: UIViewController {
             $0.axis = .horizontal
             $0.spacing = 4.0
             $0.addArrangedSubview(InfoLabel(title: "비밀번호를 잊으셨나요?"))
-            $0.addArrangedSubview(InfoButton(buttonTitle: "비밀번호 찾기", underlineEnabled: false))
+        $0.addArrangedSubview(InfoButton(buttonTitle: "비밀번호 찾기", underlineEnabled: false, titleColor: INFOKitAsset.Colors.mainColor.color))
         }
     
     private lazy var firstInfoStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.spacing = 4.0
         $0.addArrangedSubview(InfoLabel(title: "info가 처음이신가요?"))
-        $0.addArrangedSubview(InfoButton(buttonTitle: "회원가입", underlineEnabled: false))
+        $0.addArrangedSubview(InfoButton(buttonTitle: "회원가입", underlineEnabled: false, titleColor: INFOKitAsset.Colors.mainColor.color))
     }
     
     public override func viewDidLoad() {
@@ -88,7 +88,7 @@ public class LoginViewController: UIViewController {
         }
         
         loginBackgroundView.snp.makeConstraints {
-            $0.top.equalTo(whiteLogo.snp.bottom).offset(110)
+            $0.top.equalTo(whiteLogo.snp.bottom).offset(107)
             $0.bottom.equalToSuperview()
             $0.leading.trailing.equalToSuperview()
         }

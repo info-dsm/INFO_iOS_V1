@@ -25,9 +25,10 @@ open class InfoButton: UIButton {
     
     private var underlineView: UIView?
     
-    public convenience init(buttonTitle: String, underlineEnabled: Bool = true) {
+    public convenience init(buttonTitle: String, underlineEnabled: Bool = true, titleColor: UIColor) {
         self.init(frame: .zero)
         self.underlineEnabled = underlineEnabled
+        self.setTitleColor(titleColor, for: .normal)
         setTitle(buttonTitle, for: .normal)
         configureUI()
     }
@@ -44,7 +45,7 @@ open class InfoButton: UIButton {
     
     open func configureUI() {
         titleLabel?.font = .systemFont(ofSize: 10.0, weight: .medium)
-        setTitleColor(INFOKitAsset.Colors.dailyGrayColor.color, for: .normal)
+        setTitleColor(INFOKitAsset.Colors.mainColor.color, for: .normal)
         
         updateUnderline()
     }
@@ -54,7 +55,7 @@ open class InfoButton: UIButton {
         
         if underlineEnabled {
             underlineView = UIView().then {
-                $0.backgroundColor = INFOKitAsset.Colors.dailyGrayColor.color
+                $0.backgroundColor = INFOKitAsset.Colors.mainColor.color
             }
             addSubview(underlineView!)
             underlineView?.snp.makeConstraints {
