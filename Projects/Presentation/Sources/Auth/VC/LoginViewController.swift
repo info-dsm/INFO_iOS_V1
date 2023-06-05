@@ -15,7 +15,6 @@ import RxSwift
 import Core
 import INFOKit
 
-
 public class LoginViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
@@ -41,8 +40,8 @@ public class LoginViewController: UIViewController {
         $0.font = .systemFont(ofSize: 36.0, weight: .bold)
     }
     
-    private lazy var emailFieldView = InfoFieldView(title: "이메일")
-    private lazy var passwordFieldView = InfoFieldView(title: "비밀번호")
+    private lazy var emailFieldView = InfoOneFieldView(title: "이메일")
+    private lazy var passwordFieldView = InfoOneFieldView(title: "비밀번호")
     private lazy var loginButton = InfoCustomButton(title: "로그인", backgroundColor: INFOKitAsset.Colors.mainColor.color, titleColor: .white)
     
     private lazy var findPasswordStackView = UIStackView().then {

@@ -15,7 +15,7 @@ import RxSwift
 import Core
 import INFOKit
 
-open class InfoFieldView: UIView {
+open class InfoOneFieldView: UIView {
     private let titleLabel: UILabel
     private let textField: UITextField
     

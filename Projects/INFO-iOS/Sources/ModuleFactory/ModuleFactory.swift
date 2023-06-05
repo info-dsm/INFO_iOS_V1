@@ -7,15 +7,16 @@ public class ModuleFactory {
 }
 
 extension ModuleFactory: ModuleFactoryInterface {
-    public func makeVC() -> Presentation.ViewController2 {
-        let vc = ViewController2()
-        
-        return vc
-    }
     
     public func loginVC() -> Presentation.LoginViewController {
         let loginVC = LoginViewController()
         
         return loginVC
+    }
+    
+    public func signupVC() -> Presentation.SignupViewController {
+        let signupVC = SignupViewController()
+        
+        return signupVC
     }
 }
