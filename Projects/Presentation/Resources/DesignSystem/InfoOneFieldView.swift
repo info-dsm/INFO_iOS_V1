@@ -15,11 +15,11 @@ import RxSwift
 import Core
 import INFOKit
 
-open class InfoFieldView: UIView {
+open class InfoOneFieldView: UIView {
     private let titleLabel: UILabel
     private let textField: UITextField
     
-    public init(title: String) {
+    public init(title: String, placeholder: String = "이메일을 입력해주세요") {
         titleLabel = UILabel().then {
             $0.textColor = INFOKitAsset.Colors.dailyGrayColor.color
             $0.font = .systemFont(ofSize: 15.0, weight: .semibold)
@@ -29,7 +29,7 @@ open class InfoFieldView: UIView {
         textField = UITextField().then {
             $0.font = .systemFont(ofSize: 10.0, weight: .medium)
             $0.tintColor = INFOKitAsset.Colors.thinGrayColor.color
-            $0.attributedPlaceholder = NSAttributedString(string: "이메일을 입력해주세요", attributes: [NSAttributedString.Key.foregroundColor: INFOKitAsset.Colors.thinGrayColor.color])
+            $0.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor: INFOKitAsset.Colors.thinGrayColor.color])
             $0.keyboardType = .emailAddress
             $0.clearButtonMode = .whileEditing
             $0.borderStyle = .roundedRect
