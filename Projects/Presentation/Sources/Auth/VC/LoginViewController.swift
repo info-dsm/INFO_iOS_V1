@@ -45,11 +45,11 @@ public class LoginViewController: UIViewController {
     private lazy var loginButton = InfoCustomButton(title: "로그인", backgroundColor: INFOKitAsset.Colors.mainColor.color, titleColor: .white)
     
     private lazy var findPasswordStackView = UIStackView().then {
-            $0.axis = .horizontal
-            $0.spacing = 4.0
-            $0.addArrangedSubview(InfoLabel(title: "비밀번호를 잊으셨나요?"))
+        $0.axis = .horizontal
+        $0.spacing = 4.0
+        $0.addArrangedSubview(InfoLabel(title: "비밀번호를 잊으셨나요?"))
         $0.addArrangedSubview(InfoButton(buttonTitle: "비밀번호 찾기", underlineEnabled: false, titleColor: INFOKitAsset.Colors.mainColor.color))
-        }
+    }
     
     private lazy var firstInfoStackView = UIStackView().then {
         $0.axis = .horizontal
@@ -58,12 +58,22 @@ public class LoginViewController: UIViewController {
         $0.addArrangedSubview(InfoButton(buttonTitle: "회원가입", underlineEnabled: false, titleColor: INFOKitAsset.Colors.mainColor.color))
     }
     
+//    private lazy var defaultStackView = UIStackView().then {
+//         $0.axis = .vertical
+//         $0.spacing = 10.0
+//         $0.addArrangedSubview(findPasswordStackView)
+//         $0.addArrangedSubview(firstInfoStackView)
+//     }
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
         
         print("LoginViewController")
         view.backgroundColor = INFOKitAsset.Colors.mainColor.color
         layout()
+        
+        emailFieldView.textField.delegate = self
+//        passwordFieldView.textField.delegate = self
     }
     
     func layout() {
@@ -107,17 +117,17 @@ public class LoginViewController: UIViewController {
         emailFieldView.snp.makeConstraints {
             $0.top.equalTo(studentLoginTitle.snp.bottom).offset(64.0)
             $0.leading.trailing.equalToSuperview().inset(50.0)
-            $0.height.equalTo(40.0)
+            $0.height.equalTo(80.0)
         }
         
         passwordFieldView.snp.makeConstraints {
-            $0.top.equalTo(emailFieldView.snp.bottom).offset(50.0)
+            $0.top.equalTo(emailFieldView.snp.bottom).offset(20.0)
             $0.leading.trailing.equalTo(emailFieldView)
             $0.height.equalTo(emailFieldView)
         }
         
         loginButton.snp.makeConstraints {
-            $0.top.equalTo(passwordFieldView.snp.bottom).offset(90.0)
+            $0.top.equalTo(passwordFieldView.snp.bottom).offset(70.0)
             $0.leading.trailing.equalToSuperview().inset(50.0)
             $0.height.equalTo(48.0)
         }
@@ -126,11 +136,37 @@ public class LoginViewController: UIViewController {
             $0.top.equalTo(loginButton.snp.bottom).offset(14.0)
             $0.centerX.equalToSuperview()
         }
-        
+
         firstInfoStackView.snp.makeConstraints {
-            $0.top.equalTo(findPasswordStackView.snp.bottom)
+            $0.top.equalTo(findPasswordStackView.snp.bottom).offset(10.0)
             $0.centerX.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(100.0)
+            $0.bottom.equalToSuperview().inset(85.0)
         }
+
+//        defaultStackView.snp.makeConstraints {
+//            $0.top.equalTo(loginButton.snp.bottom).offset(14.0)
+//            $0.centerX.equalToSuperview()
+//            $0.bottom.equalToSuperview().inset(95.0)
+//        }
+    }
+}
+
+extension LoginViewController: UITextFieldDelegate {
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+//
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool{
+//        textField.resignFirstResponder()
+//        return true
+//    }
+    
+    public func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        // 특정 textField가 클릭되었을 때 원하는 동작을 수행할 수 있습니다.
+        // 예: 다른 뷰가 textField를 가리고 있는 경우 해당 뷰를 숨김 처리할 수 있습니다.
+        
+        // textField 클릭을 허용할 경우 true 반환
+        print("필드 클릭")
+        return true
     }
 }

@@ -14,6 +14,8 @@ let project = Project.makeModule(
     dependencies: [
         .Project.Domain,
         .Project.INFOKit,
+        .Project.Network,
+        .Project.Data
     ],
     resources: ["Resources/**"]
 )
