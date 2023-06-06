@@ -152,7 +152,7 @@ public class LoginViewController: UIViewController {
         firstInfoStackView.snp.makeConstraints {
             $0.top.equalTo(findPasswordStackView.snp.bottom).offset(10.0)
             $0.centerX.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(85.0)
+            $0.bottom.equalToSuperview().inset(80.0)
         }
     }
 }

@@ -124,37 +124,37 @@ public class SignupViewController: UIViewController {
         gmailFieldView.snp.makeConstraints {
             $0.top.equalTo(studentLoginTitle.snp.bottom).offset(14.0)
             $0.leading.trailing.equalToSuperview().inset(50.0)
-            $0.height.equalTo(40.0)
+            $0.height.equalTo(119.0)
         }
         
         studentIdFieldView1.snp.makeConstraints {
-            $0.top.equalTo(gmailFieldView.snp.bottom).offset(100.0)
+            $0.top.equalTo(gmailFieldView.snp.bottom).offset(30.0)
             $0.leading.trailing.equalToSuperview().inset(50.0)
-            $0.height.equalTo(40.0)
+            $0.height.equalTo(119.0)
         }
-        
+
         studentIdFieldView2.snp.makeConstraints {
-            $0.top.equalTo(studentIdFieldView1.snp.bottom).offset(100.0)
+            $0.top.equalTo(studentIdFieldView1.snp.bottom).offset(30.0)
             $0.leading.trailing.equalToSuperview().inset(50.0)
-            $0.height.equalTo(40.0)
+            $0.height.equalTo(119.0)
         }
-        
+
         githubFieldView.snp.makeConstraints {
-            $0.top.equalTo(studentIdFieldView2.snp.bottom).offset(100.0)
+            $0.top.equalTo(studentIdFieldView2.snp.bottom).offset(30.0)
             $0.leading.trailing.equalToSuperview().inset(50.0)
-            $0.height.equalTo(40.0)
+            $0.height.equalTo(69.0)
         }
-        
+
         signupButton.snp.makeConstraints {
-            $0.top.equalTo(githubFieldView.snp.bottom).offset(80.0)
+            $0.top.equalTo(githubFieldView.snp.bottom).offset(40.0)
             $0.leading.trailing.equalToSuperview().inset(50.0)
             $0.height.equalTo(40.0)
         }
-        
+
         userInfoStackView.snp.makeConstraints {
             $0.top.equalTo(signupButton.snp.bottom).offset(14.0)
             $0.centerX.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(100.0)
+            $0.bottom.equalToSuperview().inset(80.0)
         }
     }
 }
