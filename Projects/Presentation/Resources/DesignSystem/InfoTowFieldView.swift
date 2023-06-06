@@ -16,11 +16,11 @@ import INFOKit
 
 open class InfoTwoFieldView: UIView {
     
-    private let titleLabel: UILabel
-    private let textField1: UITextField
-    private let textField2: UITextField
-    private let button1: UIButton
-    private let button2: UIButton
+    public let titleLabel: UILabel
+    public let textField1: UITextField
+    public let textField2: UITextField
+    public let button1: UIButton
+    public let button2: UIButton
     
     public init(title: String, placeholder1: String, placeholder2: String, buttonVisible: Bool = false) {
         titleLabel = UILabel().then {
@@ -38,6 +38,7 @@ open class InfoTwoFieldView: UIView {
             $0.borderStyle = .roundedRect
             $0.backgroundColor = INFOKitAsset.Colors.lightGrayColor.color
             $0.layer.cornerRadius = 4.0
+            $0.isUserInteractionEnabled = true
         }
         
         textField2 = UITextField().then {
@@ -49,6 +50,7 @@ open class InfoTwoFieldView: UIView {
             $0.borderStyle = .roundedRect
             $0.backgroundColor = INFOKitAsset.Colors.lightGrayColor.color
             $0.layer.cornerRadius = 4.0
+            $0.isUserInteractionEnabled = true
         }
         
         button1 = UIButton().then {

@@ -11,31 +11,31 @@ import Moya
 import RxSwift
 import RxMoya
 
-class AuthService {
-    let provider = MoyaProvider<AuthAPI>()
+public class AuthService {
+    public let provider = MoyaProvider<AuthAPI>(plugins: [MoyaLoggingPlugin()])
     
-    func login(email: String, password: String) -> Single<Token> {
+    public func login(email: String, password: String) -> Single<Token> {
         return provider.rx
             .request(.login(email: email, password: password))
             .filterSuccessfulStatusCodes()
             .map(Token.self)
     }
     
-    func sendCode(email: String) -> Single<Void> {
+    public func sendCode(email: String) -> Single<Void> {
         return provider.rx
             .request(.sandCode(email: email))
             .filterSuccessfulStatusCodes()
             .map { _ in Void() }
     }
     
-    func checkCode(email: String, data: String, type: String) -> Single<Void> {
+    public func checkCode(email: String, data: String, type: String) -> Single<Void> {
         return provider.rx
             .request(.checkCode(email: email, data: data, type: type))
             .filterSuccessfulStatusCodes()
             .map { _ in }
     }
     
-    func signUp(emailCode: String, studentKey: String, name: String, email: String, password: String, githubLink: String?) -> Single<Void> {
+    public func signUp(emailCode: String, studentKey: String, name: String, email: String, password: String, githubLink: String?) -> Single<Void> {
         let signUpParameters = SignUpParameters(studentKey: studentKey, name: name, email: email, password: password, githubLink: githubLink)
         return provider.rx
             .request(.signup(emailCode: emailCode, parameters: signUpParameters))
@@ -43,14 +43,14 @@ class AuthService {
             .map { _ in Void() }
     }
     
-    func reissueToken() -> Single<Token> {
+    public func reissueToken() -> Single<Token> {
         return provider.rx
             .request(.reissue)
             .filterSuccessfulStatusCodes()
             .map(Token.self)
     }
     
-    func checkTokenTime(token: String) -> Single<Int> {
+    public func checkTokenTime(token: String) -> Single<Int> {
         return provider.rx
             .request(.tokenTime(token: token))
             .filterSuccessfulStatusCodes()
@@ -59,5 +59,8 @@ class AuthService {
                 let remainingTime = try jsonDecoder.decode(Int.self, from: response.data)
                 return remainingTime
             }
+    }
+    
+    public init() {
     }
 }

@@ -16,8 +16,8 @@ import Core
 import INFOKit
 
 open class InfoOneFieldView: UIView {
-    private let titleLabel: UILabel
-    private let textField: UITextField
+    public let titleLabel: UILabel
+    public let textField: UITextField
     
     public init(title: String, placeholder: String = "이메일을 입력해주세요") {
         titleLabel = UILabel().then {
@@ -35,6 +35,7 @@ open class InfoOneFieldView: UIView {
             $0.borderStyle = .roundedRect
             $0.backgroundColor = INFOKitAsset.Colors.lightGrayColor.color
             $0.layer.cornerRadius = 4.0
+            $0.isUserInteractionEnabled = true
         }
         
         super.init(frame: .zero)
