@@ -63,38 +63,38 @@ public class SignupViewController: UIViewController {
         view.backgroundColor = .white
         layout()
         
-        let authService = AuthService() // AuthService 인스턴스 생성
-
-        viewModel = SignupViewModel(authService: authService,
-                                    gmailText: gmailFieldView.textField1.rx.text.asObservable(),
-                                    emailCodeText: gmailFieldView.textField2.rx.text.asObservable(),
-                                    studentKeyText: studentIdFieldView1.textField1.rx.text.asObservable(),
-                                    nameText: studentIdFieldView1.textField2.rx.text.asObservable(),
-                                    passwordText: studentIdFieldView2.textField1.rx.text.asObservable(),
-                                    githubLinkText: githubFieldView.textField.rx.text.asObservable())
-
-        signupButton.rx.tap
-            .subscribe(onNext: { [weak self] in
-                print("클릭")
-                self?.viewModel.signUp(gmail: self?.gmailFieldView.textField1.text,
-                                       emailCode: self?.gmailFieldView.textField2.text,
-                                       studentKey: self?.studentIdFieldView1.textField1.text,
-                                       name: self?.studentIdFieldView1.textField2.text,
-                                       password: self?.studentIdFieldView2.textField1.text,
-                                       githubLink: self?.githubFieldView.textField.text)
-            })
-            .disposed(by: disposeBag)
-
-        viewModel.signupResult
-            .subscribe(onNext: { [weak self] result in
-                switch result {
-                case .success:
-                    print("회원가입 성공")
-                case .failure(let error):
-                    print("회원가입 실패: \(error.localizedDescription)")
-                    print("보내니까 실패")
-                }
-            })
+//        let authService = AuthService() // AuthService 인스턴스 생성
+//
+//        viewModel = SignupViewModel(authService: authService,
+//                                    gmailText: gmailFieldView.textField1.rx.text.asObservable(),
+//                                    emailCodeText: gmailFieldView.textField2.rx.text.asObservable(),
+//                                    studentKeyText: studentIdFieldView1.textField1.rx.text.asObservable(),
+//                                    nameText: studentIdFieldView1.textField2.rx.text.asObservable(),
+//                                    passwordText: studentIdFieldView2.textField1.rx.text.asObservable(),
+//                                    githubLinkText: githubFieldView.textField.rx.text.asObservable())
+//
+//        signupButton.rx.tap
+//            .subscribe(onNext: { [weak self] in
+//                print("클릭")
+//                self?.viewModel.signUp(gmail: self?.gmailFieldView.textField1.text,
+//                                       emailCode: self?.gmailFieldView.textField2.text,
+//                                       studentKey: self?.studentIdFieldView1.textField1.text,
+//                                       name: self?.studentIdFieldView1.textField2.text,
+//                                       password: self?.studentIdFieldView2.textField1.text,
+//                                       githubLink: self?.githubFieldView.textField.text)
+//            })
+//            .disposed(by: disposeBag)
+//
+//        viewModel.signupResult
+//            .subscribe(onNext: { [weak self] result in
+//                switch result {
+//                case .success:
+//                    print("회원가입 성공")
+//                case .failure(let error):
+//                    print("회원가입 실패: \(error.localizedDescription)")
+//                    print("보내니까 실패")
+//                }
+//            })
     }
     
     func layout() {

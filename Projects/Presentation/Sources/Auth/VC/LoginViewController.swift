@@ -13,8 +13,11 @@ import RxCocoa
 import RxSwift
 import Core
 import INFOKit
+import Data
 
 public class LoginViewController: UIViewController {
+    
+    private var viewModel: LoginViewModel!
     
     private let disposeBag = DisposeBag()
     
@@ -66,6 +69,23 @@ public class LoginViewController: UIViewController {
         
         emailFieldView.textField.delegate = self
         passwordFieldView.textField.delegate = self
+        
+        let authService = AuthService()
+        
+        viewModel = LoginViewModel(authService: authService)
+        
+        loginButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.login()
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func login() {
+        let email = emailFieldView.textField.text ?? ""
+        let password = passwordFieldView.textField.text ?? ""
+        
+        viewModel.login(email: email, password: password)
     }
     
     func layout() {
@@ -150,5 +170,24 @@ extension LoginViewController: UITextFieldDelegate {
     public func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         print("필드 클릭")
         return true
+    }
+}
+
+class LoginViewModel {
+    private let disposeBag = DisposeBag()
+    private let authService: AuthService
+    
+    init(authService: AuthService) {
+        self.authService = authService
+    }
+    
+    func login(email: String, password: String) {
+        authService.login(email: email, password: password)
+            .subscribe(onSuccess: { token in
+                print("성공")
+            }, onFailure: { error in
+                print("실패")
+            })
+            .disposed(by: disposeBag)
     }
 }
