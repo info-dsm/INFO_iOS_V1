@@ -8,7 +8,6 @@
 
 import Foundation
 import Moya
-import Domain
 import Core
 
 public enum AuthAPI {
