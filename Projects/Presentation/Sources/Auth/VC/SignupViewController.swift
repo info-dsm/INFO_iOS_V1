@@ -63,38 +63,49 @@ public class SignupViewController: UIViewController {
         view.backgroundColor = .white
         layout()
         
-//        let authService = AuthService() // AuthService 인스턴스 생성
-//
-//        viewModel = SignupViewModel(authService: authService,
-//                                    gmailText: gmailFieldView.textField1.rx.text.asObservable(),
-//                                    emailCodeText: gmailFieldView.textField2.rx.text.asObservable(),
-//                                    studentKeyText: studentIdFieldView1.textField1.rx.text.asObservable(),
-//                                    nameText: studentIdFieldView1.textField2.rx.text.asObservable(),
-//                                    passwordText: studentIdFieldView2.textField1.rx.text.asObservable(),
-//                                    githubLinkText: githubFieldView.textField.rx.text.asObservable())
-//
-//        signupButton.rx.tap
-//            .subscribe(onNext: { [weak self] in
-//                print("클릭")
-//                self?.viewModel.signUp(gmail: self?.gmailFieldView.textField1.text,
-//                                       emailCode: self?.gmailFieldView.textField2.text,
-//                                       studentKey: self?.studentIdFieldView1.textField1.text,
-//                                       name: self?.studentIdFieldView1.textField2.text,
-//                                       password: self?.studentIdFieldView2.textField1.text,
-//                                       githubLink: self?.githubFieldView.textField.text)
-//            })
-//            .disposed(by: disposeBag)
-//
-//        viewModel.signupResult
-//            .subscribe(onNext: { [weak self] result in
-//                switch result {
-//                case .success:
-//                    print("회원가입 성공")
-//                case .failure(let error):
-//                    print("회원가입 실패: \(error.localizedDescription)")
-//                    print("보내니까 실패")
-//                }
-//            })
+        let authService = AuthService()
+        
+        //Observable 이라서 생기는 문제 나중에 리펙 ㄱ ✌️
+        viewModel = SignupViewModel(authService: authService,
+                                    gmailText: gmailFieldView.textField1.rx.controlEvent(.editingDidEndOnExit).map { [weak self] in self?.gmailFieldView.textField1.text },
+                                    emailCodeText: gmailFieldView.textField2.rx.controlEvent(.editingDidEndOnExit).map { [weak self] in self?.gmailFieldView.textField2.text },
+                                    studentKeyText: studentIdFieldView1.textField1.rx.controlEvent(.editingDidEndOnExit).map { [weak self] in self?.studentIdFieldView1.textField1.text },
+                                    nameText: studentIdFieldView1.textField2.rx.controlEvent(.editingDidEndOnExit).map { [weak self] in self?.studentIdFieldView1.textField2.text },
+                                    passwordText: studentIdFieldView2.textField1.rx.controlEvent(.editingDidEndOnExit).map { [weak self] in self?.studentIdFieldView2.textField1.text },
+                                    githubLinkText: githubFieldView.textField.rx.controlEvent(.editingDidEndOnExit).map { [weak self] in self?.githubFieldView.textField.text })
+
+        signupButton.rx.tap
+            .throttle(.milliseconds(500), scheduler: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                print("클릭")
+                
+                self.viewModel.signUp(gmail: self.gmailFieldView.textField1.text,
+                                      emailCode: self.gmailFieldView.textField2.text,
+                                      studentKey: self.studentIdFieldView1.textField1.text,
+                                      name: self.studentIdFieldView1.textField2.text,
+                                      password: self.studentIdFieldView2.textField1.text,
+                                      githubLink: self.githubFieldView.textField.text)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.signupResult
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case .success:
+                    print("회원가입 성공")
+                case .failure(let error):
+                    print("회원가입 실패: \(error.localizedDescription)")
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        gmailFieldView.button1.rx.tap
+            .throttle(.milliseconds(500), scheduler: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] in
+                print("안녕")
+            })
+            .disposed(by: disposeBag)
     }
     
     func layout() {
