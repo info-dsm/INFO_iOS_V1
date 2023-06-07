@@ -103,7 +103,8 @@ public class SignupViewController: UIViewController {
         gmailFieldView.button1.rx.tap
             .throttle(.milliseconds(500), scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] in
-                print("안녕")
+                guard let email = self?.gmailFieldView.textField1.text else { return }
+                self?.viewModel.sendCode(email: email)
             })
             .disposed(by: disposeBag)
     }
@@ -176,6 +177,7 @@ public class SignupViewModel {
     private let disposeBag = DisposeBag()
 
     let signupResult: PublishSubject<Result<Void, Error>> = PublishSubject()
+    let sendCodeResult: PublishSubject<Result<Void, Error>> = PublishSubject()
 
     public init(authService: AuthService,
                 gmailText: Observable<String?>,
@@ -197,6 +199,16 @@ public class SignupViewModel {
             self?.signUp(gmail: gmail, emailCode: emailCode, studentKey: studentKey, name: name, password: password, githubLink: githubLink)
         })
         .disposed(by: disposeBag)
+    }
+    
+    func sendCode(email: String) {
+        authService.sendCode(email: email)
+            .subscribe(onSuccess: { [weak self] in
+                self?.sendCodeResult.onNext(.success(())) // 코드 전송 성공 처리
+            }, onError: { [weak self] error in
+                self?.sendCodeResult.onNext(.failure(error)) // 코드 전송 실패 처리
+            })
+            .disposed(by: disposeBag)
     }
 
     public func signUp(gmail: String?, emailCode: String?, studentKey: String?, name: String?, password: String?, githubLink: String?) {

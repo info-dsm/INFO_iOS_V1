@@ -32,8 +32,8 @@ extension AuthAPI: TargetType {
         switch self {
         case .login:
             return "/auth/login/user"
-        case .sandCode(let email):
-            return "/auth/code?email=\(email)"
+        case .sandCode:
+            return "/auth/code"
         case .checkCode:
             return "/auth/code"
         case .signup(let emailCode, _):
@@ -71,8 +71,9 @@ extension AuthAPI: TargetType {
         case let .login(email, password):
             let parameters = ["email": email, "password": password]
             return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
-        case .sandCode:
-            return .requestPlain
+        case let .sandCode(email):
+            let parameters = ["email": email]
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
         case let .checkCode(email, data, type):
             let parameters = ["email": email, "data": data, "type": type]
              return .requestJSONEncodable(parameters)
