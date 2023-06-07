@@ -87,7 +87,7 @@ public class SignupViewController: UIViewController {
                                       studentKey: self.studentIdFieldView1.textField1.text,
                                       name: self.studentIdFieldView1.textField2.text,
                                       password: self.studentIdFieldView2.textField1.text,
-                                      githubLink: self.githubFieldView.textField.text)
+                                      githubLink: self.githubFieldView.textField.text!)
             })
             .disposed(by: disposeBag)
         
