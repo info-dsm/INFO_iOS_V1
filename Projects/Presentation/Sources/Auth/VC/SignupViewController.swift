@@ -11,7 +11,7 @@ enum MyError: Error {
     case missingFields
     case invalidEmail
     case weakPassword
-    // Add more error cases as needed
+    case checkCode
     
     var localizedDescription: String {
         switch self {
@@ -21,6 +21,8 @@ enum MyError: Error {
             return "유효하지 않은 이메일 주소입니다. 유효한 이메일 주소를 입력해주세요."
         case .weakPassword:
             return "약한 비밀번호입니다. 보다 강력한 비밀번호를 선택해주세요."
+        case .checkCode:
+            return "유효하지 않은 인증번호입니다. 유효한 인증번호를 입력해주세요."
         }
     }
 }
@@ -107,6 +109,14 @@ public class SignupViewController: UIViewController {
                 self?.viewModel.sendCode(email: email)
             })
             .disposed(by: disposeBag)
+        
+        gmailFieldView.button2.rx.tap
+            .throttle(.milliseconds(500), scheduler: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] in
+                guard let email = self?.gmailFieldView.textField1.text else { return }
+                guard let code = self?.gmailFieldView.textField2.text else { return }
+                self?.viewModel.checkCode(email: email, data: code, type: "SIGNUP_EMAIL")
+            })
     }
     
     func layout() {
@@ -178,6 +188,8 @@ public class SignupViewModel {
 
     let signupResult: PublishSubject<Result<Void, Error>> = PublishSubject()
     let sendCodeResult: PublishSubject<Result<Void, Error>> = PublishSubject()
+    let checkCodeResult: PublishSubject<Result<Void, Error>> = PublishSubject()
+
 
     public init(authService: AuthService,
                 gmailText: Observable<String?>,
@@ -210,10 +222,21 @@ public class SignupViewModel {
             })
             .disposed(by: disposeBag)
     }
+    
+    func checkCode(email: String, data: String, type: String) {
+        authService.checkCode(email: email, data: data, type: type)
+            .subscribe(onSuccess: { [weak self] in
+                self?.checkCodeResult.onNext(.success(()))
+            }, onError: { [weak self] error in
+                self?.checkCodeResult.onNext(.failure(error))
+            })
+            .disposed(by: disposeBag)
+    }
+
 
     public func signUp(gmail: String?, emailCode: String?, studentKey: String?, name: String?, password: String?, githubLink: String?) {
         guard let emailCode = emailCode, let studentKey = studentKey, let name = name, let email = gmail, let password = password else {
-            signupResult.onNext(.failure(MyError.missingFields)) // 필수 필드가 누락된 경우 실패 처리
+            signupResult.onNext(.failure(MyError.missingFields))
             return
         }
 
