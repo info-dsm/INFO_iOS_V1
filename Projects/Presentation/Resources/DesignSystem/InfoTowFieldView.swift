@@ -8,7 +8,6 @@
 import UIKit
 import SnapKit
 import Then
-import Domain
 import RxCocoa
 import RxSwift
 import Core
@@ -23,6 +22,7 @@ open class InfoTwoFieldView: UIView {
     public let button2: UIButton
     
     public init(title: String, placeholder1: String, placeholder2: String, buttonVisible: Bool = false) {
+        
         titleLabel = UILabel().then {
             $0.textColor = INFOKitAsset.Colors.dailyGrayColor.color
             $0.font = .systemFont(ofSize: 15.0, weight: .semibold)
@@ -66,7 +66,7 @@ open class InfoTwoFieldView: UIView {
         }
         
         super.init(frame: .zero)
-        
+                
         setupLayout(buttonVisible: buttonVisible)
     }
     

@@ -1,7 +1,6 @@
 import UIKit
 import SnapKit
 import Then
-import Domain
 import RxCocoa
 import RxSwift
 import Core
@@ -12,7 +11,7 @@ enum MyError: Error {
     case missingFields
     case invalidEmail
     case weakPassword
-    // Add more error cases as needed
+    case checkCode
     
     var localizedDescription: String {
         switch self {
@@ -22,6 +21,8 @@ enum MyError: Error {
             return "유효하지 않은 이메일 주소입니다. 유효한 이메일 주소를 입력해주세요."
         case .weakPassword:
             return "약한 비밀번호입니다. 보다 강력한 비밀번호를 선택해주세요."
+        case .checkCode:
+            return "유효하지 않은 인증번호입니다. 유효한 인증번호를 입력해주세요."
         }
     }
 }
@@ -64,28 +65,32 @@ public class SignupViewController: UIViewController {
         view.backgroundColor = .white
         layout()
         
-        let authService = AuthService() // AuthService 인스턴스 생성
-
+        let authService = AuthService()
+        
+        //Observable 이라서 생기는 문제 나중에 리펙 ㄱ ✌️
         viewModel = SignupViewModel(authService: authService,
-                                    gmailText: gmailFieldView.textField1.rx.text.asObservable(),
-                                    emailCodeText: gmailFieldView.textField2.rx.text.asObservable(),
-                                    studentKeyText: studentIdFieldView1.textField1.rx.text.asObservable(),
-                                    nameText: studentIdFieldView1.textField2.rx.text.asObservable(),
-                                    passwordText: studentIdFieldView2.textField1.rx.text.asObservable(),
-                                    githubLinkText: githubFieldView.textField.rx.text.asObservable())
+                                    gmailText: gmailFieldView.textField1.rx.controlEvent(.editingDidEndOnExit).map { [weak self] in self?.gmailFieldView.textField1.text },
+                                    emailCodeText: gmailFieldView.textField2.rx.controlEvent(.editingDidEndOnExit).map { [weak self] in self?.gmailFieldView.textField2.text },
+                                    studentKeyText: studentIdFieldView1.textField1.rx.controlEvent(.editingDidEndOnExit).map { [weak self] in self?.studentIdFieldView1.textField1.text },
+                                    nameText: studentIdFieldView1.textField2.rx.controlEvent(.editingDidEndOnExit).map { [weak self] in self?.studentIdFieldView1.textField2.text },
+                                    passwordText: studentIdFieldView2.textField1.rx.controlEvent(.editingDidEndOnExit).map { [weak self] in self?.studentIdFieldView2.textField1.text },
+                                    githubLinkText: githubFieldView.textField.rx.controlEvent(.editingDidEndOnExit).map { [weak self] in self?.githubFieldView.textField.text })
 
         signupButton.rx.tap
+            .throttle(.milliseconds(500), scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
                 print("클릭")
-                self?.viewModel.signUp(gmail: self?.gmailFieldView.textField1.text,
-                                       emailCode: self?.gmailFieldView.textField2.text,
-                                       studentKey: self?.studentIdFieldView1.textField1.text,
-                                       name: self?.studentIdFieldView1.textField2.text,
-                                       password: self?.studentIdFieldView2.textField1.text,
-                                       githubLink: self?.githubFieldView.textField.text)
+                
+                self.viewModel.signUp(gmail: self.gmailFieldView.textField1.text,
+                                      emailCode: self.gmailFieldView.textField2.text,
+                                      studentKey: self.studentIdFieldView1.textField1.text,
+                                      name: self.studentIdFieldView1.textField2.text,
+                                      password: self.studentIdFieldView2.textField1.text,
+                                      githubLink: self.githubFieldView.textField.text!)
             })
             .disposed(by: disposeBag)
-
+        
         viewModel.signupResult
             .subscribe(onNext: { [weak self] result in
                 switch result {
@@ -93,8 +98,24 @@ public class SignupViewController: UIViewController {
                     print("회원가입 성공")
                 case .failure(let error):
                     print("회원가입 실패: \(error.localizedDescription)")
-                    print("보내니까 실패")
                 }
+            })
+            .disposed(by: disposeBag)
+        
+        gmailFieldView.button1.rx.tap
+            .throttle(.milliseconds(500), scheduler: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] in
+                guard let email = self?.gmailFieldView.textField1.text else { return }
+                self?.viewModel.sendCode(email: email)
+            })
+            .disposed(by: disposeBag)
+        
+        gmailFieldView.button2.rx.tap
+            .throttle(.milliseconds(500), scheduler: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] in
+                guard let email = self?.gmailFieldView.textField1.text else { return }
+                guard let code = self?.gmailFieldView.textField2.text else { return }
+                self?.viewModel.checkCode(email: email, data: code, type: "SIGNUP_EMAIL")
             })
     }
     
@@ -125,37 +146,37 @@ public class SignupViewController: UIViewController {
         gmailFieldView.snp.makeConstraints {
             $0.top.equalTo(studentLoginTitle.snp.bottom).offset(14.0)
             $0.leading.trailing.equalToSuperview().inset(50.0)
-            $0.height.equalTo(40.0)
+            $0.height.equalTo(119.0)
         }
         
         studentIdFieldView1.snp.makeConstraints {
-            $0.top.equalTo(gmailFieldView.snp.bottom).offset(100.0)
+            $0.top.equalTo(gmailFieldView.snp.bottom).offset(30.0)
             $0.leading.trailing.equalToSuperview().inset(50.0)
-            $0.height.equalTo(40.0)
+            $0.height.equalTo(119.0)
         }
-        
+
         studentIdFieldView2.snp.makeConstraints {
-            $0.top.equalTo(studentIdFieldView1.snp.bottom).offset(100.0)
+            $0.top.equalTo(studentIdFieldView1.snp.bottom).offset(30.0)
             $0.leading.trailing.equalToSuperview().inset(50.0)
-            $0.height.equalTo(40.0)
+            $0.height.equalTo(119.0)
         }
-        
+
         githubFieldView.snp.makeConstraints {
-            $0.top.equalTo(studentIdFieldView2.snp.bottom).offset(100.0)
+            $0.top.equalTo(studentIdFieldView2.snp.bottom).offset(30.0)
             $0.leading.trailing.equalToSuperview().inset(50.0)
-            $0.height.equalTo(40.0)
+            $0.height.equalTo(69.0)
         }
-        
+
         signupButton.snp.makeConstraints {
-            $0.top.equalTo(githubFieldView.snp.bottom).offset(80.0)
+            $0.top.equalTo(githubFieldView.snp.bottom).offset(40.0)
             $0.leading.trailing.equalToSuperview().inset(50.0)
             $0.height.equalTo(40.0)
         }
-        
+
         userInfoStackView.snp.makeConstraints {
             $0.top.equalTo(signupButton.snp.bottom).offset(14.0)
             $0.centerX.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(100.0)
+            $0.bottom.equalToSuperview().inset(80.0)
         }
     }
 }
@@ -166,6 +187,9 @@ public class SignupViewModel {
     private let disposeBag = DisposeBag()
 
     let signupResult: PublishSubject<Result<Void, Error>> = PublishSubject()
+    let sendCodeResult: PublishSubject<Result<Void, Error>> = PublishSubject()
+    let checkCodeResult: PublishSubject<Result<Void, Error>> = PublishSubject()
+
 
     public init(authService: AuthService,
                 gmailText: Observable<String?>,
@@ -188,10 +212,31 @@ public class SignupViewModel {
         })
         .disposed(by: disposeBag)
     }
+    
+    func sendCode(email: String) {
+        authService.sendCode(email: email)
+            .subscribe(onSuccess: { [weak self] in
+                self?.sendCodeResult.onNext(.success(())) // 코드 전송 성공 처리
+            }, onError: { [weak self] error in
+                self?.sendCodeResult.onNext(.failure(error)) // 코드 전송 실패 처리
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    func checkCode(email: String, data: String, type: String) {
+        authService.checkCode(email: email, data: data, type: type)
+            .subscribe(onSuccess: { [weak self] in
+                self?.checkCodeResult.onNext(.success(()))
+            }, onError: { [weak self] error in
+                self?.checkCodeResult.onNext(.failure(error))
+            })
+            .disposed(by: disposeBag)
+    }
+
 
     public func signUp(gmail: String?, emailCode: String?, studentKey: String?, name: String?, password: String?, githubLink: String?) {
         guard let emailCode = emailCode, let studentKey = studentKey, let name = name, let email = gmail, let password = password else {
-            signupResult.onNext(.failure(MyError.missingFields)) // 필수 필드가 누락된 경우 실패 처리
+            signupResult.onNext(.failure(MyError.missingFields))
             return
         }
 
