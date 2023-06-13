@@ -216,9 +216,9 @@ public class SignupViewModel {
     func sendCode(email: String) {
         authService.sendCode(email: email)
             .subscribe(onSuccess: { [weak self] in
-                self?.sendCodeResult.onNext(.success(())) // 코드 전송 성공 처리
+                self?.sendCodeResult.onNext(.success(())) // 코드 전송 성공 처리 😎
             }, onError: { [weak self] error in
-                self?.sendCodeResult.onNext(.failure(error)) // 코드 전송 실패 처리
+                self?.sendCodeResult.onNext(.failure(error)) // 코드 전송 실패 처리 🥲
             })
             .disposed(by: disposeBag)
     }
