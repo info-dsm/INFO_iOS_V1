@@ -39,17 +39,6 @@ public extension Project {
             dependencies: dependencies
         )
         
-//        let testTarget = Target(
-//            name: "\(name)Tests",
-//            platform: platform,
-//            product: .unitTests,
-//            bundleId: "\(organizationName).\(name)Tests",
-//            deploymentTarget: deploymentTarget,
-//            infoPlist: .default,
-//            sources: ["Tests/**"],
-//            dependencies: [.target(name: name)] // appTarget에 대한 dependency
-//        )
-        
         let targets: [Target] = [appTarget]
         let schemes: [Scheme] = [.makeScheme(target: .debug, name: name)]
         
