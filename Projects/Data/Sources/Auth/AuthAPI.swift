@@ -36,8 +36,8 @@ extension AuthAPI: TargetType {
             return "/auth/code"
         case .checkCode:
             return "/auth/code"
-        case .signup(let emailCode, _):
-            return "/auth/signup/student?emailCode=\(emailCode)"
+        case .signup:
+            return "/auth/signup/student"
         case .reissue:
             return "/auth/reissue"
         case .tokenTime:
@@ -77,8 +77,18 @@ extension AuthAPI: TargetType {
         case let .checkCode(email, data, type):
             let parameters = ["email": email, "data": data, "type": type]
              return .requestJSONEncodable(parameters)
-        case let .signup(_, parameters):
-            return .requestJSONEncodable(parameters)
+        case let .signup(emailCode, parameters):
+            let requestParameters: [String: Any] = [
+                "studentKey": parameters.studentKey,
+                "name": parameters.name,
+                "email": parameters.email,
+                "password": parameters.password,
+                "githubLink": parameters.githubLink ?? ""
+            ]
+            
+            let parameters = ["emailCode": emailCode]
+            let body = try? JSONSerialization.data(withJSONObject: requestParameters)
+            return .requestCompositeData(bodyData: body ?? Data(), urlParameters: parameters)
         case .reissue:
              return .requestPlain
         case .tokenTime(let token):
