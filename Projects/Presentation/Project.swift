@@ -13,9 +13,7 @@ let project = Project.makeModule(
     product: .staticFramework,
     dependencies: [
         .Project.Domain,
-        .Project.INFOKit,
-        .Project.Network,
-        .Project.Data
+        .Project.INFOKit
     ],
     resources: ["Resources/**"]
 )
