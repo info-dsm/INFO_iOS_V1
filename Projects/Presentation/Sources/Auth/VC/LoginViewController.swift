@@ -13,7 +13,7 @@ import RxCocoa
 import RxSwift
 import Core
 import INFOKit
-import Data
+import INetwork
 
 public class LoginViewController: UIViewController {
     

@@ -1,11 +1,11 @@
 import UIKit
+import INetwork
 import SnapKit
 import Then
 import RxCocoa
 import RxSwift
 import Core
 import INFOKit
-import Data
 
 enum MyError: Error {
     case missingFields
