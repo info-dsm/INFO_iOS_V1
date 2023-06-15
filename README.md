@@ -1,3 +1,3 @@
 # INFO_iOS
 
-![graph 복사본](https://user-images.githubusercontent.com/102890390/232639966-8f6a46ee-b393-4de8-b142-aef097ab2673.png)
+![graph](https://github.com/info-dsm/INFO_iOS_V1/assets/102890390/302d233d-4a8c-4b4c-9720-4c193fe7f158)
