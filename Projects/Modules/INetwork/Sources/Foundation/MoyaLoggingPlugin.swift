@@ -10,7 +10,7 @@ import Foundation
 import Moya
 
 public class MoyaLoggingPlugin: PluginType {
-  // Request를 보낼 때 호출
+
     public func willSend(_ request: RequestType, target: TargetType) {
     guard let httpRequest = request.request else {
       print("--> 유효하지 않은 요청")
@@ -29,7 +29,7 @@ public class MoyaLoggingPlugin: PluginType {
     log.append("------------------- END \(method) --------------------------")
     print(log)
   }
-  // Response가 왔을 때
+
     public func didReceive(_ result: Result<Response, MoyaError>, target: TargetType) {
     switch result {
     case let .success(response):
@@ -43,7 +43,7 @@ public class MoyaLoggingPlugin: PluginType {
     let request = response.request
     let url = request?.url?.absoluteString ?? "nil"
     let statusCode = response.statusCode
-    var log = "------------------- 네트워크 통신 성공 -------------------"
+    var log = "------------------- 🌳 네트워크 통신 성공 🌳 -------------------"
     log.append("\n[\(statusCode)] \(url)\n----------------------------------------------------\n")
     log.append("API: \(target)\n")
     response.response?.allHeaderFields.forEach {
@@ -61,7 +61,7 @@ public class MoyaLoggingPlugin: PluginType {
       onSuceed(response, target: target, isFromError: true)
       return
     }
-    var log = "네트워크 오류"
+    var log = "💥 네트워크 오류 💥"
     log.append("<-- \(error.errorCode) \(target)\n")
     log.append("\(error.failureReason ?? error.errorDescription ?? "unknown error")\n")
     log.append("<-- END HTTP")
