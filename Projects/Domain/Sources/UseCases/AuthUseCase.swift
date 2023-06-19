@@ -49,7 +49,7 @@ public final class DefaultAuthUseCase: AuthUseCase {
                 onSuccess: { [weak self] token in
                     self?.authSuccess.onNext(token)
                 },
-                onError: { [weak self] error in
+                onFailure: { [weak self] error in
                     self?.authFail.onNext(error)
                 }
             )
@@ -62,7 +62,7 @@ public final class DefaultAuthUseCase: AuthUseCase {
                 onSuccess: { [weak self] in
                     self?.codeSent.onNext(())
                 },
-                onError: { [weak self] error in
+                onFailure: { [weak self] error in
                     self?.authFail.onNext(error)
                 }
             )
@@ -75,7 +75,7 @@ public final class DefaultAuthUseCase: AuthUseCase {
                 onSuccess: { [weak self] in
                     self?.codeCheckSuccess.onNext(())
                 },
-                onError: { [weak self] error in
+                onFailure: { [weak self] error in
                     self?.authFail.onNext(error)
                 }
             )
@@ -88,7 +88,7 @@ public final class DefaultAuthUseCase: AuthUseCase {
                 onSuccess: { [weak self] in
                     self?.signUpSuccess.onNext(())
                 },
-                onError: { [weak self] error in
+                onFailure: { [weak self] error in
                     self?.authFail.onNext(error)
                 }
             )
@@ -101,7 +101,7 @@ public final class DefaultAuthUseCase: AuthUseCase {
                 onSuccess: { [weak self] token in
                     self?.tokenReissued.onNext(token)
                 },
-                onError: { [weak self] error in
+                onFailure: { [weak self] error in
                     self?.authFail.onNext(error)
                 }
             )
@@ -114,7 +114,7 @@ public final class DefaultAuthUseCase: AuthUseCase {
                 onSuccess: { [weak self] remainingTime in
                     self?.tokenTimeChecked.onNext(remainingTime)
                 },
-                onError: { [weak self] error in
+                onFailure: { [weak self] error in
                     self?.authFail.onNext(error)
                 }
             )
