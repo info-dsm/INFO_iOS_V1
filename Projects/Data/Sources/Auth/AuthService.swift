@@ -10,6 +10,7 @@ import Foundation
 import Moya
 import RxSwift
 import RxMoya
+import INetwork
 
 public class AuthService {
     public let provider = MoyaProvider<AuthAPI>(plugins: [MoyaLoggingPlugin()])
@@ -37,6 +38,7 @@ public class AuthService {
     
     public func signUp(emailCode: String, studentKey: String, name: String, email: String, password: String, githubLink: String?) -> Single<Void> {
         let signUpParameters = SignUpParameters(studentKey: studentKey, name: name, email: email, password: password, githubLink: githubLink)
+        
         return provider.rx
             .request(.signup(emailCode: emailCode, parameters: signUpParameters))
             .filterSuccessfulStatusCodes()
