@@ -1,11 +1,3 @@
-//
-//  InfoCustomButton.swift
-//  Presentation
-//
-//  Created by 박준하 on 2023/06/05.
-//  Copyright © 2023 INFO-iOS. All rights reserved.
-//
-
 import UIKit
 
 open class InfoCustomButton: UIButton {

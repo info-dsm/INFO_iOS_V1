@@ -1,11 +1,3 @@
-//
-//  AuthUseCase.swift
-//  Domain
-//
-//  Created by 박준하 on 2023/06/19.
-//  Copyright © 2023 INFO-iOS. All rights reserved.
-//
-
 import Foundation
 import RxSwift
 import INetwork
