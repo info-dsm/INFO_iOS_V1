@@ -1,11 +1,3 @@
-//
-//  LoginViewController.swift
-//  Presentation
-//
-//  Created by 박준하 on 2023/04/19.
-//  Copyright © 2023 INFO-iOS. All rights reserved.
-//
-
 import UIKit
 import SnapKit
 import Then
@@ -170,24 +162,5 @@ extension LoginViewController: UITextFieldDelegate {
     public func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         print("필드 클릭")
         return true
-    }
-}
-
-class LoginViewModel {
-    private let disposeBag = DisposeBag()
-    private let authService: AuthService
-    
-    init(authService: AuthService) {
-        self.authService = authService
-    }
-    
-    func login(email: String, password: String) {
-        authService.login(email: email, password: password)
-            .subscribe(onSuccess: { token in
-                print("성공")
-            }, onFailure: { error in
-                print("실패")
-            })
-            .disposed(by: disposeBag)
     }
 }

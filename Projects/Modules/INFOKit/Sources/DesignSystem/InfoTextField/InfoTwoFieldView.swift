@@ -1,17 +1,10 @@
-//
-//  InfoTowFieldView.swift
-//  Presentation
-//
-//  Created by 박준하 on 2023/06/05.
-//  Copyright © 2023 INFO-iOS. All rights reserved.
-//
 import UIKit
 import SnapKit
 import Then
+import Domain
 import RxCocoa
 import RxSwift
 import Core
-import INFOKit
 
 open class InfoTwoFieldView: UIView {
     
@@ -22,7 +15,6 @@ open class InfoTwoFieldView: UIView {
     public let button2: UIButton
     
     public init(title: String, placeholder1: String, placeholder2: String, buttonVisible: Bool = false) {
-        
         titleLabel = UILabel().then {
             $0.textColor = INFOKitAsset.Colors.dailyGrayColor.color
             $0.font = .systemFont(ofSize: 15.0, weight: .semibold)
@@ -38,7 +30,6 @@ open class InfoTwoFieldView: UIView {
             $0.borderStyle = .roundedRect
             $0.backgroundColor = INFOKitAsset.Colors.lightGrayColor.color
             $0.layer.cornerRadius = 4.0
-            $0.isUserInteractionEnabled = true
         }
         
         textField2 = UITextField().then {
@@ -50,7 +41,6 @@ open class InfoTwoFieldView: UIView {
             $0.borderStyle = .roundedRect
             $0.backgroundColor = INFOKitAsset.Colors.lightGrayColor.color
             $0.layer.cornerRadius = 4.0
-            $0.isUserInteractionEnabled = true
         }
         
         button1 = UIButton().then {
@@ -66,7 +56,7 @@ open class InfoTwoFieldView: UIView {
         }
         
         super.init(frame: .zero)
-                
+        
         setupLayout(buttonVisible: buttonVisible)
     }
     

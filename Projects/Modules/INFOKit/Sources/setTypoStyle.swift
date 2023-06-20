@@ -1,10 +1,3 @@
-//
-//  setTypoStyle.swift
-//  DSKit
-//
-//  Created by 양수빈 on 2022/10/13.
-//  Copyright © 2022 SOPT-iOS. All rights reserved.
-//
 import UIKit
 
 public extension UILabel {

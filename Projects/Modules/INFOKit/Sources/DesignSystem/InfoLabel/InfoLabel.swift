@@ -1,18 +1,10 @@
-//
-//  InfoLabel.swift
-//  Presentation
-//
-//  Created by 박준하 on 2023/06/05.
-//  Copyright © 2023 INFO-iOS. All rights reserved.
-//
-
 import UIKit
 import SnapKit
 import Then
+import Domain
 import RxCocoa
 import RxSwift
 import Core
-import INFOKit
 
 open class InfoLabel: UILabel {
     public override init(frame: CGRect) {

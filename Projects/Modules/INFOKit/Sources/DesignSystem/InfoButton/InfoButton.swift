@@ -1,18 +1,10 @@
-//
-//  InfoButton.swift
-//  Presentation
-//
-//  Created by 박준하 on 2023/06/05.
-//  Copyright © 2023 INFO-iOS. All rights reserved.
-//
-
 import UIKit
 import SnapKit
 import Then
+import Domain
 import RxCocoa
 import RxSwift
 import Core
-import INFOKit
 
 //선 코드 수정 필요 일단은 false로 쓰자
 open class InfoButton: UIButton {

@@ -1,18 +1,10 @@
-//
-//  InfoFieldView.swift
-//  Presentation
-//
-//  Created by 박준하 on 2023/06/05.
-//  Copyright © 2023 INFO-iOS. All rights reserved.
-//
-
 import UIKit
 import SnapKit
 import Then
+import Domain
 import RxCocoa
 import RxSwift
 import Core
-import INFOKit
 
 open class InfoOneFieldView: UIView {
     public let titleLabel: UILabel
@@ -34,7 +26,6 @@ open class InfoOneFieldView: UIView {
             $0.borderStyle = .roundedRect
             $0.backgroundColor = INFOKitAsset.Colors.lightGrayColor.color
             $0.layer.cornerRadius = 4.0
-            $0.isUserInteractionEnabled = true
         }
         
         super.init(frame: .zero)
