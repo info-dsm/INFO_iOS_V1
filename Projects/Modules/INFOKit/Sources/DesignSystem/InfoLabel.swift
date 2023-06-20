@@ -1,6 +1,7 @@
 import UIKit
 import SnapKit
 import Then
+import Domain
 import RxCocoa
 import RxSwift
 import Core

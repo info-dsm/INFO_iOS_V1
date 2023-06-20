@@ -1,6 +1,7 @@
 import UIKit
 import SnapKit
 import Then
+import Domain
 import RxCocoa
 import RxSwift
 import Core
@@ -26,7 +27,6 @@ open class InfoOneFieldView: UIView {
             $0.borderStyle = .roundedRect
             $0.backgroundColor = INFOKitAsset.Colors.lightGrayColor.color
             $0.layer.cornerRadius = 4.0
-            $0.isUserInteractionEnabled = true
         }
         
         super.init(frame: .zero)

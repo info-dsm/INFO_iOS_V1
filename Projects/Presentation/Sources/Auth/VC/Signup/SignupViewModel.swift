@@ -6,6 +6,7 @@ import RxSwift
 import Core
 import INFOKit
 import INetwork
+import Domain
 
 public class SignupViewModel {
 
