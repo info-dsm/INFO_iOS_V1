@@ -5,7 +5,6 @@ import Domain
 import RxCocoa
 import RxSwift
 import Core
-import INFOKit
 
 //선 코드 수정 필요 일단은 false로 쓰자
 open class InfoButton: UIButton {

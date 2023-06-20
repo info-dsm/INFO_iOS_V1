@@ -5,7 +5,6 @@ import Domain
 import RxCocoa
 import RxSwift
 import Core
-import INFOKit
 
 open class InfoOneFieldView: UIView {
     public let titleLabel: UILabel

@@ -5,7 +5,6 @@ import Domain
 import RxCocoa
 import RxSwift
 import Core
-import INFOKit
 
 open class InfoLabel: UILabel {
     public override init(frame: CGRect) {
