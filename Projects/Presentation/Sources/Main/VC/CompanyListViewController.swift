@@ -41,7 +41,7 @@ public class CompanyListViewController: UIViewController {
         collectionView.register(InfoCollectionViewCell.self, forCellWithReuseIdentifier: InfoCollectionViewCell.id)
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = .red
+        collectionView.backgroundColor = .white
         collectionView.alwaysBounceVertical = true
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 30, bottom: 20, right: 30)
     }
@@ -97,7 +97,7 @@ extension CompanyListViewController: UICollectionViewDelegate, UICollectionViewD
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 30.0
+        return 20.0
     }
 
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

@@ -12,7 +12,7 @@ class InfoCollectionViewCell: UICollectionViewCell {
     static var id: String = "InfoCollectionViewCell"
     
     private var imageView = UIImageView().then {
-        $0.backgroundColor = .blue
+        $0.image = INFOKitAsset.Assets.defaultImage.image
     }
     
     private var mainTitle = UILabel().then {
@@ -25,11 +25,13 @@ class InfoCollectionViewCell: UICollectionViewCell {
         $0.text = "운송업을 주 사업으로 활동하는 회사 입니다."
         $0.textColor = .black
         $0.font = .systemFont(ofSize: 10.0, weight: .medium)
+        $0.isEditable = false
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         layout()
+        applyShadow()
     }
     
     required init?(coder: NSCoder) {
@@ -37,7 +39,7 @@ class InfoCollectionViewCell: UICollectionViewCell {
     }
     
     func layout() {
-        self.backgroundColor = .yellow
+        self.backgroundColor = .white
         
         contentView.addSubview(imageView)
         contentView.addSubview(mainTitle)
@@ -55,10 +57,18 @@ class InfoCollectionViewCell: UICollectionViewCell {
         }
         
         subTitle.snp.makeConstraints {
-            $0.top.equalTo(mainTitle.snp.bottom).offset(6.0)
+            $0.top.equalTo(mainTitle.snp.bottom)
             $0.leading.equalTo(mainTitle.snp.leading)
             $0.trailing.equalToSuperview().inset(10.0)
             $0.bottom.equalTo(imageView.snp.bottom)
         }
+    }
+    
+    func applyShadow() {
+        layer.shadowColor = UIColor.gray.cgColor
+        layer.shadowOpacity = 0.5
+        layer.shadowOffset = CGSize(width: 2, height: 2)
+        layer.shadowRadius = 4
+        layer.masksToBounds = false
     }
 }

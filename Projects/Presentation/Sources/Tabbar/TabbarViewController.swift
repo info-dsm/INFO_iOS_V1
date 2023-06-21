@@ -41,16 +41,5 @@ public class TapBarViewController: UITabBarController {
         self.tabBar.unselectedItemTintColor = INFOKitAsset.Colors.thinGrayColor.color
         self.viewControllers = [homeVC, boardVC, tendinousVC, reviewVC]
         self.tabBar.backgroundColor = .white
-
-//        let separatorView = UIView()
-//        separatorView.backgroundColor = UIColor.lightGray
-//
-//        separatorView.snp.makeConstraints { make in
-//            make.height.equalTo(1)
-//            make.left.right.equalToSuperview()
-//            make.bottom.equalTo(self.tabBar.snp.top)
-//        }
-//
-//        self.tabBar.addSubview(separatorView)
     }
 }
