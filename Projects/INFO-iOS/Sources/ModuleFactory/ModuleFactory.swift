@@ -25,4 +25,10 @@ extension ModuleFactory: ModuleFactoryInterface {
         
         return tabbarVC
     }
+    
+    public func companyListVC() -> CompanyListViewController {
+        let companyListVC = CompanyListViewController()
+        
+        return companyListVC
+    }
 }
