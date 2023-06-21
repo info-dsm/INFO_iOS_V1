@@ -19,4 +19,16 @@ extension ModuleFactory: ModuleFactoryInterface {
         
         return signupVC
     }
+    
+    public func tabBarVC() -> TapBarViewController {
+        let tabbarVC = TapBarViewController()
+        
+        return tabbarVC
+    }
+    
+    public func companyListVC() -> CompanyListViewController {
+        let companyListVC = CompanyListViewController()
+        
+        return companyListVC
+    }
 }

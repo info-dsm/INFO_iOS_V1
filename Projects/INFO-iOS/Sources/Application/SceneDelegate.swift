@@ -14,7 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = scene
         
         let moduleFactory = ModuleFactory.shared
-        let rootViewController = moduleFactory.signupVC()
+        let rootViewController = moduleFactory.tabBarVC()
 
         window?.rootViewController = UINavigationController(rootViewController: rootViewController)
         window?.makeKeyAndVisible()
