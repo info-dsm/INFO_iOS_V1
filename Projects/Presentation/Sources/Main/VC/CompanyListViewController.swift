@@ -14,6 +14,13 @@ public class CompanyListViewController: UIViewController {
         $0.backgroundColor = INFOKitAsset.Colors.mainColor.color
     }
     
+    private let searchBar = InfoSearchBar().then {
+        $0.layer.cornerRadius = 23.13
+        $0.customPlaceholder = "검색어를 입력해주세요. (ex. 회사, 직군 등)"
+        $0.placeholderFont = UIFont.systemFont(ofSize: 10.0, weight: .medium)
+        $0.placeholderFontSize = 10.0
+    }
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,5 +39,15 @@ public class CompanyListViewController: UIViewController {
             $0.width.equalTo(370.0)
             $0.height.equalTo(130.0)
         }
+        
+        view.addSubview(searchBar)
+        
+        searchBar.snp.makeConstraints {
+            $0.leading.equalToSuperview().offset(30)
+            $0.trailing.equalToSuperview().offset(-30)
+            $0.top.equalTo(advertisementView.snp.bottom).offset(30)
+            $0.height.equalTo(44.0)
+        }
     }
 }
+
