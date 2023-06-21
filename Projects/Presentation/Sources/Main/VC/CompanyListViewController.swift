@@ -21,12 +21,29 @@ public class CompanyListViewController: UIViewController {
         $0.placeholderFontSize = 10.0
     }
     
+    private lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
+    }()
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
         navigationController?.setNavigationBarHidden(true, animated: true)
         layout()
+        setupCollectionView()
+    }
+    
+    private func setupCollectionView() {
+        collectionView.register(InfoCollectionViewCell.self, forCellWithReuseIdentifier: InfoCollectionViewCell.id)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.backgroundColor = .red
+        collectionView.alwaysBounceVertical = true
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 30, bottom: 20, right: 30)
     }
     
     func layout() {
@@ -48,6 +65,47 @@ public class CompanyListViewController: UIViewController {
             $0.top.equalTo(advertisementView.snp.bottom).offset(30)
             $0.height.equalTo(44.0)
         }
+
+        view.addSubview(collectionView)
+
+        collectionView.snp.makeConstraints {
+            $0.top.equalTo(searchBar.snp.bottom).offset(20.0)
+            $0.trailing.leading.bottom.equalToSuperview()
+        }
     }
 }
 
+
+extension CompanyListViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InfoCollectionViewCell.id, for: indexPath) as? InfoCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        
+        cell.layout()
+        cell.layer.cornerRadius = 9.25
+        
+        return cell
+    }
+
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 4
+    }
+
+    public func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 30.0
+    }
+
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        print(indexPath.row)
+    }
+
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.bounds.width - 60, height: 110)
+    }
+}
