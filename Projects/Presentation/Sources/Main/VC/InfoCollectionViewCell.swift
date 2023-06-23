@@ -12,7 +12,7 @@ class InfoCollectionViewCell: UICollectionViewCell {
     static var id: String = "InfoCollectionViewCell"
     
     private var imageView = UIImageView().then {
-        $0.image = INFOKitAsset.Assets.defaultImage.image
+        $0.image = INFOKitAsset.Assets.defaultImg.image
     }
     
     private var mainTitle = UILabel().then {
