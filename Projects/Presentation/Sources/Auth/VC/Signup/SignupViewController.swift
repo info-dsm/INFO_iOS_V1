@@ -84,8 +84,8 @@ public class SignupViewController: UIViewController {
 
                 self.viewModel.signUp(gmail: self.gmailFieldView.textField1.text,
                                       emailCode: self.gmailFieldView.textField2.text,
-                                      studentKey: self.studentIdFieldView1.textField1.text,
-                                      name: self.studentIdFieldView1.textField2.text,
+                                      studentKey: self.studentIdFieldView1.textField2.text,
+                                      name: self.studentIdFieldView1.textField1.text,
                                       password: self.studentIdFieldView2.textField1.text,
                                       githubLink: self.githubFieldView.textField.text!)
             })
